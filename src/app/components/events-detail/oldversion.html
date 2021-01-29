@@ -1,0 +1,282 @@
+<div class="container">
+	
+	
+	<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+		{{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+	</button>
+	<mat-horizontal-stepper [linear]="isLinear" #stepper>
+		
+		
+		<!--general info-->
+		<mat-step [stepControl]="generalInfo">
+			<form [formGroup]="generalInfo">
+				<ng-template matStepLabel>Fill out your name</ng-template>
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label> Event Name</mat-label>
+						
+						<input matInput placeholder="Placeholder" formControlName="name">
+					
+					</mat-form-field>
+				</div>
+				
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Organizer</mat-label>
+						
+						<input matInput placeholder="Placeholder" formControlName="organizer">
+					</mat-form-field>
+				</div>
+				
+				
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Category</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="category">
+					</mat-form-field>
+				</div>
+				
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Online URL</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="onlineUrl">
+					</mat-form-field>
+				</div>
+				
+				
+				<div>
+					<button mat-button matStepperNext>Next</button>
+				</div>
+			</form>
+		</mat-step>
+		<mat-step [stepControl]="generalInfo">
+			<form [formGroup]="generalInfo">
+				<ng-template matStepLabel>Fill out your name</ng-template>
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label> Event Name</mat-label>
+						
+						<input matInput placeholder="Placeholder" formControlName="name">
+					
+					</mat-form-field>
+				</div>
+				
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Organizer</mat-label>
+						
+						<input matInput placeholder="Placeholder" formControlName="organizer">
+					</mat-form-field>
+				</div>
+				
+				
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Category</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="category">
+					</mat-form-field>
+				</div>
+				
+				<div>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Online URL</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="onlineUrl">
+					</mat-form-field>
+				</div>
+				
+				
+				<div>
+					<button mat-button matStepperNext>Next</button>
+				</div>
+			</form>
+		</mat-step>
+		
+		
+		<!--address-->
+		<mat-step label="Fill out your address" [stepControl]="addressInfo">
+			<form [formGroup]="addressInfo" style="justify-items: center">
+				
+				<mat-form-field class="col-5" appearance="outline">
+					<mat-label>Address</mat-label>
+					<input matInput placeholder="Placeholder" formControlName="address">
+				
+				</mat-form-field>
+				
+				<mat-form-field class="col-5" appearance="outline">
+					<mat-label>Address 2</mat-label>
+					
+					<input matInput placeholder="Placeholder" formControlName="address2">
+				
+				</mat-form-field>
+				
+				
+				<mat-form-field class="col-3" appearance="outline">
+					<mat-label>City</mat-label>
+					<input matInput placeholder="Placeholder" formControlName="city">
+				</mat-form-field>
+				
+				<mat-form-field class="col-3" appearance="outline">
+					<mat-label>Region</mat-label>
+					<input matInput placeholder="Placeholder" formControlName="region">
+				</mat-form-field>
+				
+				<mat-form-field class="col-3" appearance="outline">
+					<mat-label>Zip Code</mat-label>
+					<input matInput placeholder="Placeholder" formControlName="zipCode">
+				</mat-form-field>
+				
+				<div>
+					<mat-form-field class="col-4" appearance="outline">
+						<mat-label>Country</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="country">
+					
+					</mat-form-field>
+				</div>
+				
+				
+				<div class="row " style="margin-left:0">
+					<mat-form-field class="col-4" appearance="outline">
+						<mat-label>Start of the event</mat-label>
+						<input matInput [matDatepicker]="picker" formControlName="startOfEvent">
+						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+					
+					
+					<timepicker class="col-3" style="margin-top:-10px"
+					            formGroupName="startTime"></timepicker>
+				
+				
+				</div>
+				
+				<div class="row" style="margin-left:0">
+					<mat-form-field class="col-4" appearance="outline">
+						<mat-label>End of the event</mat-label>
+						<input matInput [matDatepicker]="picker2" formControlName="endOfEvent">
+						<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+						<mat-datepicker #picker2></mat-datepicker>
+					</mat-form-field>
+					
+					
+					<timepicker class="col-3" style="margin-top:-10px"
+					            formControlName="endTime"></timepicker>
+				
+				
+				</div>
+				
+				<div>
+					<button mat-button matStepperPrevious>Back</button>
+					<button mat-button matStepperNext>Next</button>
+				</div>
+			</form>
+		</mat-step>
+		
+		
+		<!--date-->
+		<mat-step>
+			<ng-template matStepLabel>Done</ng-template>
+			<p>You are now done.</p>
+			<div>
+				<button mat-button matStepperPrevious>Back</button>
+				<button mat-button (click)="stepper.reset()">Reset</button>
+			</div>
+		</mat-step>
+	</mat-horizontal-stepper>
+	
+	
+	<!--<form [formGroup]="eventForm" (ngSubmit)="submitForm()" novalidate>
+		
+		
+		<h2>Location</h2>
+		<div formGroupName="location">
+		
+		</div>
+		
+		
+		<h1>Date</h1>
+		
+		
+		<div class="example-button-container">
+			<button type="submit" mat-fab color="accent"
+			        aria-label="Example icon button with a bookmark icon">
+				<mat-icon>bookmark</mat-icon>
+			</button>
+		</div>
+		
+		
+		<h1>Sessions</h1>
+		
+		
+		<div class="example-action-buttons">
+			<button mat-button (click)="accordion.openAll()">Expand All</button>
+			<button mat-button (click)="accordion.closeAll()">Collapse All</button>
+		</div>
+		
+		<div class="mb-4">
+			<div formArrayName="sessions">
+				<div [formGroupName]="i"
+				     *ngFor="let session of sessions.controls; let i=index">
+					<mat-accordion class="example-headers-align mb-4" multi>
+						<mat-expansion-panel class="mb-4" style="max-width: 800px">
+							<mat-expansion-panel-header>
+								<mat-panel-title>
+									Session
+								</mat-panel-title>
+								<mat-panel-description>
+									<mat-icon>account_circle</mat-icon>
+								</mat-panel-description>
+							</mat-expansion-panel-header>
+							
+							<div>
+								<mat-form-field class="col-5" appearance="outline">
+									<mat-label> Session Name</mat-label>
+									<label>
+										<input formControlName="sessionName" matInput
+										       placeholder="Placeholder">
+									</label>
+								</mat-form-field>
+							</div>
+							<div>
+								<mat-form-field class="col-5" appearance="outline">
+									<mat-label> Presenter</mat-label>
+									<label>
+										<input formControlName="presenter" matInput
+										       placeholder="Placeholder">
+									</label>
+								</mat-form-field>
+							</div>
+							<div>
+								<mat-form-field class="col-5" appearance="outline">
+									<mat-label> Duration</mat-label>
+									<label>
+										<input formControlName="duration" matInput
+										       placeholder="Placeholder">
+									</label>
+								</mat-form-field>
+							</div>
+							<mat-form-field class="col-8" appearance="outline">
+								<mat-label>Abstract</mat-label>
+								<textarea matInput placeholder="Placeholder" formControlName="abstract"></textarea>
+							</mat-form-field>
+							
+							
+							<div class="example-button-container">
+								<button (click)="addSession()" mat-fab color="accent"
+								        aria-label="Example icon button with a bookmark icon">
+									<mat-icon>bookmark</mat-icon>
+								</button>
+							</div>
+						
+						</mat-expansion-panel>
+					
+					</mat-accordion>
+				
+				
+				</div>
+			
+			
+			</div>
+		</div>
+	</form>-->
+</div>
+

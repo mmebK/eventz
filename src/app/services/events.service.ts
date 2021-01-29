@@ -16,7 +16,7 @@ interface GetResponseEvents {
 })
 export class EventsService {
 
-    searchUrl = 'http://localhost:8080/events';
+    url = 'http://localhost:8080/events';
 
     constructor(private http: HttpClient) {
     }
@@ -24,8 +24,18 @@ export class EventsService {
 
     getEvents(): Observable<ItEvent[]> {
 
-        return this.http.get<GetResponseEvents>(this.searchUrl).pipe(map(data => data._embedded.events));
+        return this.http.get<GetResponseEvents>(this.url).pipe(map(data => data._embedded.events));
+    }
 
+
+    postEvent(event): Observable<any> {
+        return this.http.post<Event>(this.url, event);
+    }
+
+    getEvent(eventId: number): Observable<ItEvent> {
+
+        const eventUrl = `${this.url}/${eventId}`;
+        return this.http.get<ItEvent>(eventUrl);
 
     }
 

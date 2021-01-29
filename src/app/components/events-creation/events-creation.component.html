@@ -1,82 +1,376 @@
 <div class="container">
-    
-    
-    <ul ngbNav #nav="ngbNav" [(activeId)]="active" (navChange)="onNavChange($event)" class="nav-tabs">
-        <li [ngbNavItem]="1">
-            <a ngbNavLink>One</a>
-            <ng-template ngbNavContent>
-                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua,
-                    retro synth
-                    master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher
-                    retro
-                    keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip
-                    placeat
-                    salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="2">
-            <a ngbNavLink>Two</a>
-            <ng-template ngbNavContent>
-                <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
-                    farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip
-                    jean shorts
-                    ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.
-                    Keytar
-                    helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum
-                    wes anderson
-                    8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party
-                    scenester
-                    stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="3">
-            <a ngbNavLink>I can't be selected on click</a>
-            <ng-template ngbNavContent>
-                <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla
-                    facilisi.
-                    Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu,
-                    congue et odio.
-                    Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed
-                    diam urna,
-                    egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl
-                    enim, nec
-                    tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque
-                    penatibus et
-                    magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies
-                    in eget
-                    neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="4" [disabled]="disabled">
-            <a ngbNavLink>I'm disabled</a>
-            <ng-template ngbNavContent>
-                <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla
-                    facilisi.
-                    Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu,
-                    congue et odio.
-                    Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed
-                    diam urna,
-                    egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl
-                    enim, nec
-                    tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque
-                    penatibus et
-                    magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies
-                    in eget
-                    neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
-            </ng-template>
-        </li>
-    </ul>
-    
-    <div [ngbNavOutlet]="nav" class="mt-2"></div>
-    
-    <div class="mb-3">
-        <button class="btn btn-sm btn-outline-primary" [disabled]="active === 2" (click)="nav.select(2)">Select second
-            tab
-        </button>
-        <button class="btn btn-sm btn-outline-primary ml-2" (click)="toggleDisabled()">Toggle last disabled</button>
-    </div>
-    
-    <pre>Active: {{ active }}</pre>
-
+	
+	
+	<!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+		{{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+	</button>-->
+	<mat-horizontal-stepper [linear]="isLinear" #stepper>
+		
+		
+		<!--general info-->
+		
+		
+		<mat-step [stepControl]="generalInfo">
+			<form [formGroup]="generalInfo" (ngSubmit)="submitForm()">
+				<ng-template matStepLabel>Fill out your name</ng-template>
+				<!--<mat-form-field>
+					<input matInput type="time" class="bg-none" placeholder="Time">
+				</mat-form-field>-->
+				
+				<div formGroupName="basicInfo" class="mt-4">
+					
+					<h1>Basic Information</h1>
+					<p></p>
+					<div>
+						<mat-form-field class="col-5" color="accent" appearance="outline">
+							<mat-label> Event Name</mat-label>
+							
+							<input matInput placeholder="Placeholder" formControlName="name">
+						
+						</mat-form-field>
+					</div>
+					
+					<div>
+						<mat-form-field class="col-5" appearance="outline">
+							<mat-label>Organizer</mat-label>
+							
+							<input matInput placeholder="Placeholder" formControlName="organizer">
+						</mat-form-field>
+					</div>
+					
+					
+					<!--category-->
+					<!--{{cat.categories[0]}}-->
+					<div>
+						<mat-form-field class="col-5" appearance="outline">
+							<mat-label>category</mat-label>
+							<mat-select formControlName="category">
+								
+								<mat-option *ngFor="let eventCat of categories.eventsCategories" [value]="eventCat">
+									{{eventCat}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					
+					
+					<div>
+						<mat-form-field class="col-5" appearance="outline">
+							<mat-label>Online URL</mat-label>
+							<input matInput placeholder="Placeholder" formControlName="onlineUrl">
+						</mat-form-field>
+					</div>
+				</div>
+				
+				<mat-divider></mat-divider>
+				<!--address-->
+				
+				<div formGroupName="addressInfo" class="mt-4">
+					<h1>Location</h1>
+					<p>Indicate the location of the place where the event will be held</p>
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Address</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="address">
+					
+					</mat-form-field>
+					
+					<mat-form-field class="col-5" appearance="outline">
+						<mat-label>Address 2</mat-label>
+						
+						<input matInput placeholder="Placeholder" formControlName="address2">
+					
+					</mat-form-field>
+					
+					
+					<mat-form-field class="col-3" appearance="outline">
+						<mat-label>City</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="city">
+					</mat-form-field>
+					
+					<mat-form-field class="col-3" appearance="outline">
+						<mat-label>Region</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="region">
+					</mat-form-field>
+					
+					<mat-form-field class="col-3" appearance="outline">
+						<mat-label>Zip Code</mat-label>
+						<input matInput placeholder="Placeholder" formControlName="zipCode">
+					</mat-form-field>
+					
+					<div>
+						<mat-form-field class="col-4" appearance="outline">
+							<mat-label>Country</mat-label>
+							<input matInput formControlName="country">
+						
+						</mat-form-field>
+					</div>
+				
+				</div>
+				
+				<mat-divider></mat-divider>
+				<!--date info-->
+				<div formGroupName="dateInfo" class="mt-4">
+					<h1>Date</h1>
+					<p>
+						Indicate to participants when the event will begin and end.
+					</p>
+					<div class="row " style="margin-left:0">
+						<mat-form-field class="col-4" appearance="outline">
+							<mat-label>Start of the event</mat-label>
+							<input matInput [matDatepicker]="picker" formControlName="startOfEvent"
+							       (dateChange)="updateDOB($event)">
+							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+							<mat-datepicker #picker></mat-datepicker>
+						</mat-form-field>
+						
+						<div class="col-md-6">
+							<mat-form-field appearance="outline">
+								<mat-label>{{ 'start time' }}</mat-label>
+								<input #start matInput [ngxTimepicker]="startTime" [format]="24"
+								
+								       formControlName="startTime" required/>
+								<button mat-button matSuffix mat-icon-button type="button">
+									<mat-icon class="i-time" (click)="startTime.open()">access_time</mat-icon>
+								</button>
+							</mat-form-field>
+							<ngx-material-timepicker appendToInput="start" #startTime></ngx-material-timepicker>
+						</div>
+					
+					
+					</div>
+					
+					<div class="row" style="margin-left:0">
+						<mat-form-field class="col-4" appearance="outline">
+							<mat-label>End of the event</mat-label>
+							<input matInput [matDatepicker]="picker2" formControlName="endOfEvent">
+							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+							<mat-datepicker #picker2></mat-datepicker>
+						</mat-form-field>
+						
+						<div class="col-md-6">
+							<mat-form-field appearance="outline">
+								<mat-label>{{ 'end time' }}</mat-label>
+								<input #end matInput [ngxTimepicker]="endTime" [format]="24"
+								       formControlName="endTime" required/>
+								<button mat-button matSuffix mat-icon-button type="button">
+									<mat-icon class="i-time" (click)="endTime.open()">access_time</mat-icon>
+								</button>
+							</mat-form-field>
+							<ngx-material-timepicker appendToInput="end" #endTime></ngx-material-timepicker>
+						</div>
+					
+					</div>
+				</div>
+				
+				
+				<div>
+					<button mat-button matStepperPrevious>Back</button>
+					<button mat-button matStepperNext>Next</button>
+				</div>
+			</form>
+		</mat-step>
+		
+		
+		<!--date-->
+		<mat-step [stepControl]="sessionForm">
+			<ng-template matStepLabel>Complementary infos</ng-template>
+			<form [formGroup]="complementInfo" (ngSubmit)="submitForm()" novalidate>
+				
+				<!--
+								<app-image-upload></app-image-upload>
+				-->
+				<h1>Principal Image of The event</h1>
+				<p>provide the main image of the event, this will appear on main page</p>
+				<mat-form-field class="col-8" appearance="outline">
+					<mat-label>Description</mat-label>
+					<textarea formControlName="imageUrl" matInput placeholder="Placeholder"></textarea>
+				</mat-form-field>
+				
+				
+				<h1>Description</h1>
+				<p>please provide a brief description of the event</p>
+				<mat-form-field class="col-8" appearance="outline">
+					<mat-label>Description</mat-label>
+					<textarea formControlName="description" matInput placeholder="Placeholder"
+					></textarea>
+				</mat-form-field>
+				
+				
+				<div>
+					<button mat-button matStepperPrevious>Back</button>
+					<button mat-button (click)="stepper.reset()">Reset</button>
+				</div>
+			
+			</form>
+		</mat-step>
+		
+		<!--sessions-->
+		
+		<mat-step [stepControl]="sessionForm">
+			<ng-template matStepLabel>Create the sessions</ng-template>
+			
+			<form [formGroup]="sessionForm" (ngSubmit)="submitForm()" novalidate>
+				
+				
+				<h1>Sessions</h1>
+				<p>Indicate any session contained within the event</p>
+				
+				
+				<div class="example-action-buttons">
+					<button mat-button (click)="accordion.openAll()">Expand All</button>
+					<button mat-button (click)="accordion.closeAll()">Collapse All</button>
+				</div>
+				
+				<div class="mb-4">
+					<div formArrayName="sessions">
+						
+						<mat-accordion class="example-headers-align mb-4" multi [formGroupName]="i"
+						               *ngFor="let session of sessions.controls; let i=index">
+							<mat-expansion-panel [expanded]="true" [disabled]="false" #mep="matExpansionPanel"
+							                     class="mb-4"
+							                     style="max-width: 800px" hideToggle>
+								<mat-expansion-panel-header>
+									<mat-panel-title>
+										Session {{i + 1}}
+									</mat-panel-title>
+									<mat-panel-description>
+										<mat-icon>account_circle</mat-icon>
+									</mat-panel-description>
+								</mat-expansion-panel-header>
+								
+								<div>
+									
+									<mat-form-field class="col-5" appearance="outline">
+										<mat-label> Session Name</mat-label>
+										<label>
+											<input formControlName="name" matInput
+											       placeholder="Placeholder">
+										</label>
+									</mat-form-field>
+								
+								</div>
+								<div>
+									<mat-form-field class="col-5" appearance="outline">
+										<mat-label> Presenter</mat-label>
+										<label>
+											<input formControlName="presenter" matInput
+											       placeholder="Placeholder">
+										</label>
+									</mat-form-field>
+								</div>
+								<div>
+									<mat-form-field class="col-5" appearance="outline">
+										<mat-label>Level</mat-label>
+										<mat-select formControlName="level">
+											
+											<mat-option *ngFor="let sessionCat of categories.sessionCategories"
+											            [value]="sessionCat">
+												{{sessionCat}}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								
+								<!--
+								<mde-popover [mdePopoverArrowColor]="none" [mdePopoverOffsetX]="-235"
+								             [mdePopoverOffsetY]="15"
+								             [mdePopoverArrowOffsetX]="0" #appPopover="mdePopover"
+								             [mdePopoverOverlapTrigger]="false"
+								             [mdePopoverCloseOnClick]="false">
+									<mat-card style="width: 280px; height: 120px">
+										<mat-card-content style="justify-content: center">
+											<timepicker #timepicker formControlName="timeL"
+											            [showMeridian]="false"></timepicker>
+										</mat-card-content>
+										<mat-card-actions align="center">
+										
+										
+										</mat-card-actions>
+									</mat-card>
+								
+								</mde-popover>
+								
+								<mat-form-field class="col-5" appearance="outline">
+									<mat-label> Duration</mat-label>
+									<label>
+										<input matInput readonly
+										       [value]="session.get('timeL').value | date:'HH:mm' "
+										/>
+									</label>
+									<button mat-button matSuffix mat-icon-button type="button"
+									        [mdePopoverTriggerFor]="appPopover"
+									        mdePopoverTriggerOn="click">
+										<mat-icon class="i-time">
+											access_time
+										</mat-icon>
+									</button>
+								</mat-form-field>
+								
+								<igx-time-picker formControlName="timestamp" #picker [value]="today" format="HH:mm"
+								                 mode="dropdown">
+									<ng-template igxTimePickerTemplate let-openDialog="openDialog" let-value="value"
+									             let-displayTime="displayTime">
+										<igx-input-group>
+											<input #dropDownTarget igxInput [value]="displayTime"
+											       (blur)="onBlur(dropDownTarget.value, value, picker)"/>
+											<igx-suffix>
+												<igx-icon (click)="openDialog(dropDownTarget)">access_time</igx-icon>
+											</igx-suffix>
+											<igx-hint>{{value}}</igx-hint>
+										</igx-input-group>
+									</ng-template>
+									<ng-template igxTimePickerActions>
+										<div class="action-buttons">
+											<button igxButton="flat" (click)="picker.cancelButtonClick()">cancel
+											</button>
+											<button igxButton="flat" (click)="picker.okButtonClick()">ok</button>
+											<button igxButton="flat" (click)="selectNow(picker)">now</button>
+										</div>
+									</ng-template>
+								</igx-time-picker>-->
+								
+								
+								<div>
+									<mat-form-field class="col-8" appearance="outline">
+										<mat-label>Description</mat-label>
+										<textarea matInput placeholder="Placeholder"
+										          formControlName="description"></textarea>
+									</mat-form-field>
+								
+								
+								</div>
+								
+								
+								<button type="button" (click)="togglePanel(mep)" mat-button>
+									<mat-icon>save</mat-icon>
+									Save
+								</button>
+							
+							</mat-expansion-panel>
+						</mat-accordion>
+						
+						
+						<div class="example-button-container">
+							<button class="button-add" type="button" (click)="addSession()" mat-fab color="accent"
+							        aria-label="Example icon button with a bookmark icon">
+								<mat-icon>add_circle</mat-icon>
+								add
+							</button>
+						</div>
+					
+					</div>
+				</div>
+			</form>
+		
+		</mat-step>
+	
+	</mat-horizontal-stepper>
+	
+	
+	<button (click)="submitForm()" type="submit">
+		submit
+	</button>
 </div>
+
+
 
