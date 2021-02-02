@@ -28,7 +28,6 @@ export class EventsDetailComponent implements OnInit {
 
     }
 
-
     private handleEventDetails() {
 
         let eventId: number = +this.route.snapshot.paramMap.get('id');

@@ -89,3 +89,9 @@
 .collapse-content .fa.fa-share-alt:hover {
     color: #0d47a1 !important;
 }
+
+a {
+    text-decoration: none;
+    outline: 0;
+    background-color: black;
+}

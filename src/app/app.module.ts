@@ -70,7 +70,8 @@ import {MatTabsModule} from '@angular/material/tabs';
         FormsModule,
         RouterModule.forRoot([
             {path: 'newEvent', component: EventsCreationComponent},
-
+            {path: 'search', component: EventsSearchComponent},
+            {path: 'search/:keyword', component: EventsSearchComponent},
             {path: 'events/:id', component: EventsDetailComponent},
             {path: 'events', component: MainPageComponent},
             {path: 'details', component: EventsDetailComponent},

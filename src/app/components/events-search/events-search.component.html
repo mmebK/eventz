@@ -1,9 +1,128 @@
-<div class="container">
-	<div class="row top">
-		<div>
-			<div>category</div>
+<div class="container mt-5" style="justify-content: center">
+	
+	
+	<form [formGroup]="search" role="search">
+		<div class="forms">
+			<div class="col-8">
+				<div class="d-flex search-container">
+					<div class="d-flex flex-column flex-grow-1 ">
+						
+						<div>
+							<mat-form-field class="search-input " appearance="none">
+								
+								<input #myInput (keyup.enter)="doSearch(myInput.value,myInput2.value,myInput3.value)"
+								       formControlName="searchInput"
+								       matInput type="text" placeholder="search ">
+								<button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
+								        (click)="value=''">
+									<mat-icon>close</mat-icon>
+								</button>
+								<button mat-button matPrefix mat-icon-button>
+									<mat-icon>event</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+						<mat-divider></mat-divider>
+						
+						<div>
+							<mat-form-field class="location-input" appearance="none">
+								
+								<input #myInput2 formControlName="locationInput" matInput type="text"
+								       placeholder="location">
+								<button disabled mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
+								        (click)="value=''">
+									<mat-icon>close</mat-icon>
+								</button>
+								<button matPrefix mat-icon-button>
+									<mat-icon>location_on</mat-icon>
+								</button>
+							
+							</mat-form-field>
+						</div>
+						<mat-divider></mat-divider>
+					
+					</div>
+					
+					<button (click)="doSearch(myInput.value,myInput2.value,myInput3.value)" mat-raised-button
+					        class="input-group advanced-search ">
+						<mat-icon>search</mat-icon>
+					</button>
+				</div>
+			
+			</div>
+		
+		</div>
+		
+		<div class="filter mt-1">
+			<div class="d-flex flex-row">
+				<mat-form-field appearance="fill">
+					<mat-label>Category</mat-label>
+					<mat-select #myInput3 formControlName="category">
+						<mat-option>None</mat-option>
+						
+						<mat-option *ngFor="let category of categories.eventsCategories"
+						            [value]="category">{{category}}</mat-option>
+					
+					</mat-select>
+				
+				</mat-form-field>
+				<mat-divider vertical style="height:59px"></mat-divider>
+				<mat-form-field class="example-full-width" appearance="fill">
+					<mat-label>Date</mat-label>
+					<input formControlName="date" matInput [matDatepicker]="picker">
+					<mat-datepicker-toggle matSuffix [for]="picker">
+						<mat-icon matDatepickerToggleIcon>access_time</mat-icon>
+					</mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+			
+			
+			</div>
+		
+		</div>
+	</form>
+	<div class="row" *ngIf="events">
+		
+		<div *ngFor="let event of events">
+			
+			
+			<div class="blog-card">
+				
+				
+				<div class="inner-part">
+					<label class="img">
+						<img class="img-1" src="https://picsum.photos/360/220">
+					</label>
+					<div class="content ">
+						<div class="date-info ">
+							<div class="header-text ml-3 mt-2">
+								<mat-icon class="mr-1">date_range</mat-icon>
+								{{event.startOfEvent}}
+								<mat-icon class="mr-1 ml-3">access_time</mat-icon>
+								{{event.startTime}}
+							</div>
+						</div>
+						
+						<a routerLink="/events/{{event.id}}" class="title ml-3" role="presentation">
+							{{event.name}}
+						</a>
+						<span>{{event.organizer}}</span>
+						<div class="location-info ml-3 mb-2">
+							<mat-icon>location_on</mat-icon>
+							{{event.location.city}}      {{event.location.country}}
+						
+						</div>
+					
+					</div>
+				</div>
+			
+			
+			</div>
+		
 		
 		</div>
 	</div>
 
 </div>
+
+

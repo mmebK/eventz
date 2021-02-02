@@ -50,3 +50,13 @@ body {
     margin-bottom: 20px;
     margin-top: 20px
 }
+
+.mat-select-panel-wrap {
+    margin: 28px 0;
+    pointer-events: fill;
+}
+
+/*.cdk-overlay-pane {
+    pointer-events: none !important;
+
+}*/

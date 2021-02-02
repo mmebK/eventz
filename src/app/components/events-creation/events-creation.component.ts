@@ -80,31 +80,11 @@ export class EventsCreationComponent implements OnInit {
     constructor(private fb: FormBuilder, private router: Router, private catService: CategoriesService, private eventService: EventsService) {
     }
 
-    get timeol() {
-        return this.sessionForm.get('sessions.0').get('timeL').value;
-    }
 
     get sessions() {
         return <FormArray> this.sessionForm.get('sessions');
     }
 
-    public onBlur(inputValue: string, value: Date, picker: IgxTimePickerComponent) {
-        const parts = inputValue.split(/[\s:]+/);
-
-        const hour = parseInt(parts[0], 10);
-        const minutes = parseInt(parts[1], 10);
-
-        if (picker.validHourEntries.indexOf(hour) !== -1 && picker.validMinuteEntries.indexOf(minutes) !== -1) {
-            value.setHours(hour, minutes);
-        } else {
-            throw new Error('This is not a valid hour.');
-        }
-    }
-
-    public selectNow(timePicker: IgxTimePickerComponent) {
-        timePicker.value = this.today;
-        timePicker.close();
-    }
 
     ngOnInit(): void {
         //this.reactiveForm();
@@ -142,10 +122,6 @@ export class EventsCreationComponent implements OnInit {
 
         });
 
-        this.formJoin = new FormGroup({
-            form1: this.generalInfo,
-            form2: this.sessionForm
-        });
     }
 
     addSession() {
