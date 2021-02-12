@@ -20,10 +20,7 @@ import {MainPageComponent} from './components/main-page/main-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
-import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {MatSelectModule} from '@angular/material/select';
+
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
@@ -39,12 +36,14 @@ import {EventsModule} from '@progress/kendo-angular-common';
 import {DurationInputComponent} from './components/duration-input/duration-input.component';
 import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
 import {PopoverModule} from 'ngx-bootstrap/popover';
-import {MdePopoverModule} from '@material-extended/mde';
 import {MatCardModule} from '@angular/material/card';
 import {IgxButtonModule, IgxIconModule, IgxInputGroupModule, IgxTimePickerModule} from 'igniteui-angular';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatTabsModule} from '@angular/material/tabs';
+import {DataService} from './services/data.service';
+import {MDCSelect} from '@material/select/component';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 @NgModule({
     declarations: [
@@ -69,7 +68,9 @@ import {MatTabsModule} from '@angular/material/tabs';
         HttpClientModule,
         FormsModule,
         RouterModule.forRoot([
+
             {path: 'newEvent', component: EventsCreationComponent},
+            {path: 'login', component: LoginComponent},
             {path: 'search', component: EventsSearchComponent},
             {path: 'search/:keyword', component: EventsSearchComponent},
             {path: 'events/:id', component: EventsDetailComponent},
@@ -93,16 +94,16 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatDatepickerModule,
         TimepickerModule,
         PopoverModule.forRoot(),
-        MdePopoverModule,
         MatCardModule,
         IgxTimePickerModule,
         IgxInputGroupModule,
         IgxIconModule,
         IgxButtonModule,
         FontAwesomeModule,
-        MatTabsModule
+        MatTabsModule,
+        BsDropdownModule,
     ],
-    providers: [EventsService,
+    providers: [EventsService, EventsSearchComponent, DataService,
         {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
     ],
     bootstrap: [AppComponent],

@@ -1,10 +1,18 @@
+body {
+    background: #f2f2f2;
+}
+
+.container {
+    background: #f2f2f2
+}
+
 .card {
     display: grid;
     grid-template-columns: 278px;
     grid-template-rows: 210px 210px 40px;
     grid-template-areas: "image" "text" "stats";
     border-radius: 5px;
-    background: white;
+    background: white !important;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
     font-family: roboto, sans-serif;
     text-align: center;
@@ -36,7 +44,7 @@
 }
 
 .card-text .date {
-    color: rgb(10, 10, 128);
+    color: rgb(10, 10, 128) !important;
     font-size: 10px;
     font-weight: bold
 }
@@ -59,7 +67,7 @@
     grid-template-rows: 1fr;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    background: #e9ecef;
+    background: #e9ecef !important;
 }
 
 .card-stats .stat {
@@ -93,5 +101,5 @@
 a {
     text-decoration: none;
     outline: 0;
-    background-color: black;
+    background-color: black !important;
 }
