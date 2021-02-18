@@ -11,6 +11,9 @@ export class DataService {
     currentData = this.data.asObservable();
     currentData2 = this.data.asObservable();
     jwt: BehaviorSubject<string> = new BehaviorSubject('');
+    image: BehaviorSubject<string> = new BehaviorSubject('');
+    croppedImage: BehaviorSubject<string> = new BehaviorSubject('');
+    fileToUpload: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
     currentJwt = this.jwt.asObservable();
 
 
@@ -26,8 +29,19 @@ export class DataService {
         this.data2.next(item);
     }
 
+    updateCroppedImage(image: any) {
+        this.croppedImage.next(image);
+    }
+
     updateJwt(item: any) {
         this.jwt.next(item);
     }
 
+    updateImage(imageChangedEvent: any) {
+        this.image.next(imageChangedEvent);
+    }
+
+    updateFileToUpload(file: any) {
+        this.fileToUpload.next(file);
+    }
 }

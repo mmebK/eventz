@@ -7,10 +7,10 @@ export class ItEvent {
     id: number;
     name: string;
     category: string;
-    startTime: Date;
-    endTime: Date;
-    startOfEvent: Date;
-    endOfEvent: Date;
+    startTime: string;
+    endTime: string;
+    startOfEvent: string;
+    endOfEvent: string;
     price: number;
     location: Location;
     eventSessions: Session[];

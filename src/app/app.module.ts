@@ -42,8 +42,14 @@ import {ImageUploadComponent} from './components/image-upload/image-upload.compo
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatTabsModule} from '@angular/material/tabs';
 import {DataService} from './services/data.service';
-import {MDCSelect} from '@material/select/component';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {ImageCropperComponent} from './components/image-cropper/image-cropper.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DragDropImageDirective} from './directives/drag-drop-image.directive';
+import {MaterialFileInputModule} from 'ngx-material-file-input';
+import {FilePickerModule} from 'ngx-awesome-uploader';
+
 
 @NgModule({
     declarations: [
@@ -60,6 +66,8 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
         MainPageComponent,
         DurationInputComponent,
         ImageUploadComponent,
+        ImageCropperComponent,
+        DragDropImageDirective,
     ],
     imports: [
         BrowserModule,
@@ -102,6 +110,10 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
         FontAwesomeModule,
         MatTabsModule,
         BsDropdownModule,
+        ImageCropperModule,
+        MatDialogModule,
+        MaterialFileInputModule, FilePickerModule
+
     ],
     providers: [EventsService, EventsSearchComponent, DataService,
         {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},

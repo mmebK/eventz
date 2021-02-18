@@ -1,5 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {UploaderService} from '../../services/uploader.service';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
+import {ImageCroppedEvent, ImageCropperComponent} from 'ngx-image-cropper';
+import {DataService} from '../../services/data.service';
+
+export interface DialogData {
+    animal: 'panda' | 'unicorn' | 'lion';
+}
+
+function convertDataUrlToBlob(dataUrl): Blob {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);/**/
+
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }/**/
+
+    return new Blob([u8arr], {type: mime});
+}
 
 @Component({
     selector: 'app-image-upload',
@@ -7,49 +29,62 @@ import {UploaderService} from '../../services/uploader.service';
     styleUrls: ['./image-upload.component.css']
 })
 export class ImageUploadComponent implements OnInit {
+    @ViewChild(ImageCropperComponent) imageCropper: ImageCropperComponent;
+    imageChangedEvent: any = '';
+    croppedImage: any = '';
+    close = false;
 
-    progress: number;
-    infoMessage: any;
-    isUploading: boolean = false;
-    file: File;
-
-    imageUrl: string | ArrayBuffer =
-        'http://bulma.io/images/placeholders/480';
-
-    fileName: string = 'No file selected';
-
-    constructor(private uploader: UploaderService) {
+    constructor(private dataService: DataService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     }
 
-    ngOnInit() {
-        this.uploader.progressSource.subscribe(progress => {
-            this.progress = progress;
-        });
+    ngOnInit(): void {
+        this.dataService.image.subscribe(data => this.imageChangedEvent = data);
+        console.log('from upload' + this.imageChangedEvent);
     }
 
-    onChange(file: File) {
-        if (file) {
-            this.fileName = file.name;
-            this.file = file;
 
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
+    imageCropped(event: ImageCroppedEvent) {
+        this.croppedImage = event.base64;
+        console.log(this.croppedImage);
+        this.dataService.updateCroppedImage(this.croppedImage);
 
-            reader.onload = event => {
-                this.imageUrl = reader.result;
-            };
-        }
+        const file = new File([convertDataUrlToBlob(this.croppedImage)], 'imageName.png', {type: `image/png`});
+        this.dataService.updateFileToUpload(file);
+        console.log(file);
+        // console.log();
+
     }
 
-    onUpload() {
-        this.infoMessage = null;
-        this.progress = 0;
-        this.isUploading = true;
-
-        this.uploader.upload(this.file).subscribe(message => {
-            this.isUploading = false;
-            this.infoMessage = message;
-        });
+    crop() {
+        this.imageCropper.crop();
+        /*this.lastCropperPosition = this.getCurrentCropperPosition();
+        this.lastCroppedImage = new ElementRef(
+            this.imageCropper.sourceImage.nativeElement
+        );*/
+        this.close = true;
     }
 
+    /* cancelCrop() {
+         if (this.lastCroppedImage) {
+             this.imageCropper.sourceImage = this.lastCroppedImage;
+         }
+
+         if (this.lastCropperPosition) {
+             this.imageCropper.cropper = this.getLastCropperPosition();
+         }
+
+         this.logoModal.hide();
+     }*/
+
+    imageLoaded() {
+        // show cropper
+    }
+
+    cropperReady() {
+        // cropper ready
+    }
+
+    loadImageFailed() {
+        // show message
+    }
 }
