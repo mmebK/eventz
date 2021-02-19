@@ -24,6 +24,17 @@ export class EventsService {
     }
 
 
+    getEventsByLocation(location): Observable<ItEvent[]> {
+        const searchUrl = `${this.url}/search/findByLocation_CountryContainingOrLocation_CityContaining?country=${location}` + `&city=${location}`;
+        return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
+    }
+
+
+    getEventsByLocation_City(city: string): Observable<ItEvent[]> {
+        const searchUrl = `${this.url}/search/findByLocation_CityContaining?city=${city}`;
+        return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
+    }
+
     getEvents(): Observable<ItEvent[]> {
 
         return this.http.get<GetResponseEvents>(this.url).pipe(map(data => data._embedded.events));
@@ -49,12 +60,17 @@ export class EventsService {
 
     }
 
-    searchEvents(keyword: string): Observable<ItEvent[]> {
+    searchEventsByName(keyword: string): Observable<ItEvent[]> {
         const searchUrl = `${this.url}/search/findByNameContaining?name=${keyword}`;
         return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
     }
 
-    searchEventses(keyword: string, location: string, category: string): Observable<ItEvent[]> {
+    getEventListByCategory(category: string): Observable<ItEvent[]> {
+        const searchUrl = `${this.url}/search/findByCategoryContaining?category=${category}`;
+        return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
+    }
+
+    searchEventsByNameLocationCategory(keyword: string, location: string, category: string): Observable<ItEvent[]> {
         const searchUrl = `${this.url}/search/findByNameContainingAndLocation_CityContainingAndCategoryContaining?name=${keyword}` + `&location=${location}` + `&category=${category}`;
         return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
     }

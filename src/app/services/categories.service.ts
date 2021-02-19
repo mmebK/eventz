@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 })
 export class CategoriesService {
 
+
     getCategories() {
         return CATEGORIES;
     }
@@ -13,9 +14,9 @@ export class CategoriesService {
 
 const CATEGORIES = {
     eventsCategories: [
-        'infrastructure',
-        'computing',
-        'software',
+        'Infrastructure',
+        'Computing',
+        'Software',
         'Apis',
         'Networks',
         'Data Storage',
@@ -31,7 +32,7 @@ const CATEGORIES = {
         'Event Processing',
         'Monitoring',
         'Information Security',
-        'mobile',
+        'Mobile',
         'Mobile Platforms',
         'Search',
         'Communications',
@@ -46,5 +47,13 @@ const CATEGORIES = {
         'Beginner',
         'Intermediate',
         'Advanced'
+    ],
+    keyWords: [
+        'Internet of Things',
+        'Artificial Intelligence',
+        'Infrastructure',
+        'Computing',
+        'Software',
+        'Analytics'
     ]
 };
