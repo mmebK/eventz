@@ -212,7 +212,7 @@ export class EventsCreationComponent implements OnInit {
         console.log(this.image);
         formData.append('event', JSON.stringify(event));
         formData.append('file', this.image);
-        this.eventService.postEventine(formData).subscribe(response => console.log(response));
+        this.eventService.postEvent(formData).subscribe(response => console.log(response));
 
     }
 

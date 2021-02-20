@@ -45,7 +45,7 @@ export class EventsSearchComponent implements OnInit {
         //this.eventService.search.subscribe(data => console.log(data));
         console.log('inside dosearch ' + value);
 
-        this.eventService.searchEventsByNameLocationCategory(value, value2, value3).subscribe(data => {
+        this.eventService.getEventsByNameLocationCategory(value, value2, value3).subscribe(data => {
             this.events = data;
             console.log(data);
         });
@@ -55,7 +55,7 @@ export class EventsSearchComponent implements OnInit {
     doSearchKeyWord(value2) {
         console.log(`${value2}`);
 
-        this.eventService.searchEventsByName(value2).subscribe(data => this.events = data);
+        this.eventService.getEventsByName(value2).subscribe(data => this.events = data);
 
     }
 }

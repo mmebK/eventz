@@ -1,8 +1,10 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ItEvent} from '../shared/events';
 import {map} from 'rxjs/operators';
+import {IGNORED_ENTRY_POINT} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
+import {AuthenticationService} from './authentication.service';
 
 interface GetResponseEvents {
     _embedded: {
@@ -17,10 +19,10 @@ interface GetResponseEvents {
 export class EventsService {
 
     url = 'http://localhost:8080/events';
-    urls = 'http://localhost:8080/saveImage';
+    urls = 'http://localhost:8080/saveEvent';
     @Output() search: EventEmitter<any> = new EventEmitter();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private auth: AuthenticationService) {
     }
 
 
@@ -41,11 +43,11 @@ export class EventsService {
     }
 
 
-    postEvent(event): Observable<any> {
-        return this.http.post<Event>(this.url, event);
-    }
+    /* postEvent(event): Observable<any> {
+         return this.http.post<Event>(this.url, event);
+     }*/
 
-    getEvent(eventId: number): Observable<ItEvent> {
+    getEventById(eventId: number): Observable<ItEvent> {
 
         const eventUrl = `${this.url}/${eventId}`;
         return this.http.get<ItEvent>(eventUrl);
@@ -60,17 +62,17 @@ export class EventsService {
 
     }
 
-    searchEventsByName(keyword: string): Observable<ItEvent[]> {
+    getEventsByName(keyword: string): Observable<ItEvent[]> {
         const searchUrl = `${this.url}/search/findByNameContaining?name=${keyword}`;
         return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
     }
 
-    getEventListByCategory(category: string): Observable<ItEvent[]> {
+    getEventsByCategory(category: string): Observable<ItEvent[]> {
         const searchUrl = `${this.url}/search/findByCategoryContaining?category=${category}`;
         return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
     }
 
-    searchEventsByNameLocationCategory(keyword: string, location: string, category: string): Observable<ItEvent[]> {
+    getEventsByNameLocationCategory(keyword: string, location: string, category: string): Observable<ItEvent[]> {
         const searchUrl = `${this.url}/search/findByNameContainingAndLocation_CityContainingAndCategoryContaining?name=${keyword}` + `&location=${location}` + `&category=${category}`;
         return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
     }
@@ -81,8 +83,10 @@ export class EventsService {
     }
 
 
-    postEventine(formData: FormData) {
+    postEvent(formData: FormData) {
+        this.auth.loadToken();
+        let headers = new HttpHeaders({'authorization': 'Bearer ' + this.auth.jwt});
         console.log('saving image called');
-        return this.http.post(this.urls, formData);
+        return this.http.post(this.urls, formData, {headers: headers});
     }
 }

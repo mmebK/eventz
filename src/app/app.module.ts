@@ -49,6 +49,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {DragDropImageDirective} from './directives/drag-drop-image.directive';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {FilePickerModule} from 'ngx-awesome-uploader';
+import {AuthGuardGuard} from './guards/auth-guard.guard';
 
 
 @NgModule({
@@ -77,7 +78,7 @@ import {FilePickerModule} from 'ngx-awesome-uploader';
         FormsModule,
         RouterModule.forRoot([
 
-            {path: 'newEvent', component: EventsCreationComponent},
+            {path: 'newEvent', component: EventsCreationComponent, canActivate: [AuthGuardGuard]},
             {path: 'login', component: LoginComponent},
             {path: 'search', component: EventsSearchComponent},
             {path: 'search/:keyword', component: EventsSearchComponent},
