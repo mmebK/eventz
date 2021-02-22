@@ -1,147 +1,154 @@
-<div *ngIf="event" class="container">
-	<div class="row header">
-		<div class="col-4 left-header">
-			<div class=" entry-date">
-				<div class="date-event">
-					<p class="day">
-						{{event.startOfEvent.toString().substring(event.startOfEvent.toString().indexOf(" "), event.startOfEvent.toString().indexOf(","))}}
-					</p>
-					
-					
-					<p class="month">
-						{{event.startOfEvent.toString().substring(0, event.startOfEvent.toString().indexOf(" "))}}
-					</p>
-				</div>
-			</div>
-			
-			<div class="col event-name">{{event.name}}</div>
-		
-		
-		</div>
-		<div class="col-8">
-			<img
-					class="profile-user-img img-responsive img-circle"
-					[src]=image height="400px" width="max"
-					alt="User profile picture"
-			/>
-		</div>
-	</div>
-	
-	<div class="row">
-		<!-- details -->
-		
-		<div class="col-4">
-			<!--originzer-->
-			
-			<div class="row details mt-4 mb-4">
-				<div class="col-2">
-					<mat-icon aria-hidden="false" class="white-icon" aria-label="Example home icon">info</mat-icon>
-				
-				</div>
-				<div class="col ">
-					<div>
-						<span class="details">Organizer:</span>
-						{{event.organizer}}
-					</div>
-					
-					<div>
-						<span class="details">Online web site: </span>
-						{{event.onlineUrl}}
-					</div>
-				
-				
-				</div>
-			
-			
-			</div>
-			<mat-divider></mat-divider>
-			<!--date-->
-			<div class="row mt-4 mb-4">
-				<div class="col-2">
-					<mat-icon aria-hidden="false" aria-label="Example home icon">access_time</mat-icon>
-				</div>
-				
-				<div class="col date-container">
-					<div class="startevent">
-						<strong>start</strong>
-						{{event.startOfEvent}}
-						<span class="time-container col">{{event.startTime}}</span>
-					</div>
-					<div class="endevent">
-						<strong class="mr-3">end</strong>
-						{{event.endOfEvent}}
-						<span class=" time-container col">{{event.endTime}}</span>
-					
-					</div>
-				</div>
-			
-			</div>
-			<mat-divider></mat-divider>
-			<!--location-->
-			
-			<div class="row address mt-4 mb-4">
-				<div class="col-2">
-					<mat-icon aria-hidden="false" aria-label="Example home icon">location_on</mat-icon>
-				</div>
-				<div class="col">
-					<div>
-						{{event.location.address}}
-					</div>
-					
-					<div>
-						{{event.location.zipCode}}
-					</div>
-					<div>
-						{{event.location.city}} {{event.location.country}}
-					</div>
-				</div>
-			
-			</div>
-		
-		</div>
-		
-		<!--all other details-->
-		<div class="col mt-4 mb-3">
-			<mat-tab-group>
-				<mat-tab label="Description">{{event.description}}</mat-tab>
-				<mat-tab label="Sessions">
-					<mat-accordion class="mb-4" *ngFor="let session of event.eventSessions">
-						
-						<mat-expansion-panel (opened)="panelOpenState = true"
-						                     (closed)="panelOpenState = false">
-							<mat-expansion-panel-header>
-								<mat-panel-title>
-									<strong>{{session.name}}</strong>
-								</mat-panel-title>
+<div class="main-body">
+	<div class="wrapper-body">
+		<div *ngIf="event" class="container ">
+			<div class="row header">
+				<div class="col-4 left-header">
+					<div class=" entry-date">
+						<div class="date-event">
+							<p class="day">
+								{{event.startOfEvent.toString().substring(event.startOfEvent.toString().indexOf(" "), event.startOfEvent.toString().indexOf(","))}}
+							</p>
 							
-							</mat-expansion-panel-header>
-							<p>
-								<strong>Presenter:</strong>
-								{{session.presenter}}
+							
+							<p class="month">
+								{{event.startOfEvent.toString().substring(0, event.startOfEvent.toString().indexOf(" "))}}
 							</p>
-							<p>
-								<strong>Level:</strong>
-								{{session.level}}
-							</p>
-							<p>
-								<strong>Description:</strong>
-								{{session.description}}
-							</p>
-						
-						</mat-expansion-panel>
-					</mat-accordion>
+						</div>
+					</div>
+					
+					<div class="col event-name">{{event.name}}</div>
 				
-				</mat-tab>
+				
+				</div>
+				<div class="col-8 right-header">
+					<img
+							class="profile-user-img img-responsive img-circle"
+							[src]=image
+							alt="User profile picture"
+					/>
+				</div>
+			</div>
 			
-			</mat-tab-group>
+			<div class="row">
+				<!-- details -->
+				
+				<div class="col-4">
+					<!--originzer-->
+					
+					<div class="row details mt-4 mb-4">
+						<div class="col-2">
+							<mat-icon aria-hidden="false" class="white-icon" aria-label="Example home icon">info
+							</mat-icon>
+						
+						</div>
+						<div class="col ">
+							<div>
+								<span class="details">Organizer:</span>
+								{{event.organizer}}
+							</div>
+							
+							<div>
+								<span class="details">Online web site: </span>
+								{{event.onlineUrl}}
+							</div>
+						
+						
+						</div>
+					
+					
+					</div>
+					<mat-divider></mat-divider>
+					<!--date-->
+					<div class="row mt-4 mb-4">
+						<div class="col-2">
+							<mat-icon aria-hidden="false" aria-label="Example home icon">access_time</mat-icon>
+						</div>
+						
+						<div class="col date-container">
+							<div class="startevent">
+								<strong>start</strong>
+								{{event.startOfEvent}}
+								<span class="time-container col">{{event.startTime}}</span>
+							</div>
+							<div class="endevent">
+								<strong class="mr-3">end</strong>
+								{{event.endOfEvent}}
+								<span class=" time-container col">{{event.endTime}}</span>
+							
+							</div>
+						</div>
+					
+					</div>
+					<mat-divider></mat-divider>
+					<!--location-->
+					
+					<div class="row address mt-4 mb-4">
+						<div class="col-2">
+							<mat-icon aria-hidden="false" aria-label="Example home icon">location_on</mat-icon>
+						</div>
+						<div class="col">
+							<div>
+								{{event.location.address}}
+							</div>
+							
+							<div>
+								{{event.location.zipCode}}
+							</div>
+							<div>
+								{{event.location.city}} {{event.location.country}}
+							</div>
+						</div>
+					
+					</div>
+				
+				</div>
+				
+				<!--all other details-->
+				<div class="col mt-4 mb-3">
+					<mat-tab-group>
+						<mat-tab label="Description">{{event.description}}</mat-tab>
+						<mat-tab label="Sessions">
+							<mat-accordion class="mb-4" *ngFor="let session of event.eventSessions">
+								
+								<mat-expansion-panel (opened)="panelOpenState = true"
+								                     (closed)="panelOpenState = false">
+									<mat-expansion-panel-header>
+										<mat-panel-title>
+											<strong>{{session.name}}</strong>
+										</mat-panel-title>
+									
+									</mat-expansion-panel-header>
+									<p>
+										<strong>Presenter:</strong>
+										{{session.presenter}}
+									</p>
+									<p>
+										<strong>Level:</strong>
+										{{session.level}}
+									</p>
+									<p>
+										<strong>Description:</strong>
+										{{session.description}}
+									</p>
+								
+								</mat-expansion-panel>
+							</mat-accordion>
+						
+						</mat-tab>
+					
+					</mat-tab-group>
+				
+				</div>
+			
+			
+			</div>
+		
 		
 		</div>
-	
-	
 	</div>
-
 
 </div>
+
 
 
 

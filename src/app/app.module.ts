@@ -87,6 +87,8 @@ import {AuthGuardGuard} from './guards/auth-guard.guard';
             {path: 'details', component: EventsDetailComponent},
             {path: '', redirectTo: '/events', pathMatch: 'full'},
             {path: '**', redirectTo: '/events', pathMatch: 'full'},
+            {path: '**', redirectTo: '/events/api', pathMatch: 'full'},
+
         ]),
         BrowserAnimationsModule,
         MatSliderModule,

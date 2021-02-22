@@ -1,14 +1,17 @@
 <div class="row justify-content-start  ">
-	<div *ngFor="let event of events">
+	<div *ngFor="let event of events, index as i">
+		
 		<div class="card m-3">
+			
 			<div class="card-image">
-				<img src="" alt="">
+				{{setCurrentIndex(event.id)}}
+				<img [src]=image alt="">
 			</div>
 			<div class="card-text">
 				<div class="row mb-4 mt-3">
 					<div class="col justify-content-start">
 						<i class="fa fa-clock fa-align-left"></i>
-						Jan,20 2016
+						{{event.startOfEvent.substring(0, 3) + event.startOfEvent.substring(event.startOfEvent.indexOf(" "))}}
 					</div>
 					
 					<div class="col ">
@@ -24,15 +27,18 @@
 			
 			</div>
 			<div class="card-stats">
-				<i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top"
+				<i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip"
+				   data-placement="top"
 				   title="Share this post"></i>
-				<i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top"
+				<i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip"
+				   data-placement="top"
 				   title="I like it"></i>
 			</div>
 		</div>
 	</div>
 	<div *ngIf="events?.length==0" class="alert alert-warning col-md-12" role="alert">no events found</div>
 </div>
+
 
 
 

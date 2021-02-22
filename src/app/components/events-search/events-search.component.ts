@@ -5,6 +5,7 @@ import {ItEvent} from '../../shared/events';
 import {EventsService} from '../../services/events.service';
 import {Router} from '@angular/router';
 import {DataService} from '../../services/data.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-events-search',
@@ -17,8 +18,10 @@ export class EventsSearchComponent implements OnInit {
     categories;
     search: FormGroup;
     events: ItEvent[];
+    private eventId: number;
+    image;
 
-    constructor(private dataService: DataService, private categoriesService: CategoriesService, private fb: FormBuilder, private eventService: EventsService, private route: Router) {
+    constructor(private dataService: DataService, private categoriesService: CategoriesService, private fb: FormBuilder, private eventService: EventsService, private route: Router, private sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
@@ -35,6 +38,12 @@ export class EventsSearchComponent implements OnInit {
             this.doSearchKeyWord(data);
             this.search.get('searchInput').setValue(data);
         });
+    }
+
+    setCurrentIndex(i: number) {
+        this.eventId = i;
+        this.image = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/photoProduct/' + this.eventId);
+        console.log(this.eventId);
     }
 
     doSearch(value, value2, value3) {

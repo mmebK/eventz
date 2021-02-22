@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 import {DataService} from '../../services/data.service';
 
 
-function compressImage(src, newX, newY) {
+/*function compressImage(src, newX, newY) {
     return new Promise((res, rej) => {
         const img = new Image();
         img.src = src;
@@ -23,7 +23,7 @@ function compressImage(src, newX, newY) {
         };
         img.onerror = error => rej(error);
     });
-}
+}*/
 
 @Component({
     selector: 'app-events-detail',

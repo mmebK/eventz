@@ -41,7 +41,8 @@ export class AuthenticationService {
 
 
     isAdmin() {
-        if (this.jwtUpdated != null) {
+        this.loadToken();
+        if (this.jwt != null) {
             this.readToken();
             this.parseJWT();
             return this.roles.indexOf('ADMIN') >= 0;
@@ -50,8 +51,9 @@ export class AuthenticationService {
     }
 
     isUser() {
-        if (this.jwtUpdated != null) {
-            console.log('from is user' + this.jwtUpdated.value);
+
+        if (this.jwt != null) {
+            console.log('from is user' + this.jwt);
             this.readToken();
             this.parseJWT();
             return this.roles.indexOf('USER') >= 0;
@@ -90,16 +92,21 @@ export class AuthenticationService {
 
     private parseJWT() {
         this.jwtUpdated.subscribe(data => {
+
             // console.log('daata' + data);
+
             let jwtHelper = new JwtHelperService();
             let objJWT = jwtHelper.decodeToken(data);
             //console.log(objJWT);
-            this.userName = objJWT.sub;
-            this.userNameUpdated.next(this.userName);
-            localStorage.setItem('userName', this.userName);
-            // console.log(this.userName);
+            if (objJWT != null) {
+                this.userName = objJWT.sub;
+                this.userNameUpdated.next(this.userName);
+                localStorage.setItem('userName', this.userName);
+                // console.log(this.userName);
 
-            this.roles = objJWT.roles;
+                this.roles = objJWT.roles;
+            }
+
         });
 
 
