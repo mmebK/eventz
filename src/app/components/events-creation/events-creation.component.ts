@@ -1,16 +1,16 @@
-import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatAccordion, MatExpansionPanel} from '@angular/material/expansion';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CategoriesService} from '../../services/categories.service';
 import {EventsService} from '../../services/events.service';
 import {AuthenticationService} from '../../services/authentication.service';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {ImageUploadComponent} from '../image-upload/image-upload.component';
 import {MatDialog} from '@angular/material/dialog';
 import {DataService} from '../../services/data.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
+import {FormValidators} from '../../validators/form-validators';
 
 
 let replacerd = function(key, value) {
@@ -27,30 +27,23 @@ let replacer = function(key, value) {
 };
 
 
-
-
 @Component({
     selector: 'app-events-creation',
     templateUrl: './events-creation.component.html',
     styleUrls: ['./events-creation.component.scss']
 })
 export class EventsCreationComponent implements OnInit {
-
+    onlineUrlMessage;
     active;
     disabled = true;
     myTime: Date;
-    eventForm: FormGroup;
     image: any = File;
     @ViewChild(MatAccordion) accordion: MatAccordion;
     @ViewChild(MatExpansionPanel) panel: MatExpansionPanel;
-
     isLinear = false;
     generalInfo: FormGroup;
-    addressInfo: FormGroup;
     sessionForm: FormGroup;
-    selected: false;
     public value;
-    public value2;
     complementInfo: FormGroup;
     step = 0;
     categories;
@@ -61,18 +54,16 @@ export class EventsCreationComponent implements OnInit {
     files: any = [];
     filename: any;
 
+    private validationMessages = {
+        required: 'please enter the online url ',
+        onlineUrl: 'please enter a valid online url'
+    };
+
     constructor(private http: HttpClient, private sanitizer: DomSanitizer, private dataService: DataService, private fb: FormBuilder, private router: Router, private catService: CategoriesService, private eventService: EventsService, private auth: AuthenticationService, public dialog: MatDialog) {
     }
 
     get sessions() {
         return <FormArray> this.sessionForm.get('sessions');
-    }
-
-    uploadFile(event) {
-        for (let index = 0; index < event.length; index++) {
-            const element = event[index];
-            this.files.push(element.name);
-        }
     }
 
 
@@ -91,12 +82,9 @@ export class EventsCreationComponent implements OnInit {
         console.log('image data is' + this.image);
 
         console.log(this.image2);
+        let imageVal;
+        imageVal = this.image2;
 
-
-    }
-
-    public uploadSuccess(event): void {
-        console.log(event);
     }
 
     openDialog() {
@@ -107,17 +95,6 @@ export class EventsCreationComponent implements OnInit {
         });
     }
 
-    imageLoaded() {
-        // show cropper
-    }
-
-    cropperReady() {
-        // cropper ready
-    }
-
-    loadImageFailed() {
-        // show message
-    }
 
     ngOnInit(): void {
         //this.reactiveForm();
@@ -129,31 +106,35 @@ export class EventsCreationComponent implements OnInit {
                 name: ['', Validators.required],
                 organizer: ['', Validators.required],
                 category: ['', Validators.required],
-                onlineUrl: ['', Validators.required]
+                onlineUrl: ['', [Validators.required, FormValidators.onlineUrl]]
             }),
             addressInfo: this.fb.group({
                 address: ['', Validators.required],
-                address2: ['', Validators.required],
+                address2: [''],
                 city: ['', Validators.required],
                 region: ['', Validators.required],
                 zipCode: ['', Validators.required],
                 country: ['', Validators.required]
             }),
             dateInfo: this.fb.group({
-                startOfEvent: '',
-                startTime: '',
-                endOfEvent: '',
-                endTime: ''
+                startOfEvent: ['', Validators.required],
+                startTime: ['', Validators.required],
+                endOfEvent: ['', Validators.required],
+                endTime: ['', Validators.required]
             })
         });
         this.complementInfo = this.fb.group({
             // imageUrl: '',
-            description: '',
+            description: ['', Validators.required],
         });
         this.sessionForm = this.fb.group({
             sessions: this.fb.array([this.buildSession()])
 
         });
+        /*const onlineUrlControl = this.generalInfo.get('baseInfo.onlineUrl');
+        onlineUrlControl.valueChanges.pipe(
+            debounceTime(1000)).subscribe(() => this.setMessage(onlineUrlControl));*/
+
 
     }
 
@@ -166,14 +147,8 @@ export class EventsCreationComponent implements OnInit {
         let a = {};
         let i = 0;
 
-
-        //  console.log(i++);
-        //  console.log(prop);
-        // console.log(jsonCopy3[prop]);
-        //console.log(jsonCopy3);
         Object.keys(jsonCopy3).forEach(key => {
-            // console.log('this is the key:' + key);
-            //  console.log('this is the value:' + jsonCopy3[key]);
+
         });
 
         Object.keys(jsonCopy3).forEach(key => a[key] = jsonCopy3[key]);
@@ -199,7 +174,6 @@ export class EventsCreationComponent implements OnInit {
         return a;
 
     }
-
 
 
     submitForm() {
@@ -241,12 +215,23 @@ export class EventsCreationComponent implements OnInit {
 
     private buildSession() {
         return this.fb.group({
-            name: '',
-            presenter: '',
-            level: '',
-            description: '',
+            name: ['', Validators.required],
+            presenter: ['', Validators.required],
+            level: ['', Validators.required],
+            description: ['', Validators.required],
 
         });
+    }
+
+    private setMessage(control: AbstractControl): void {
+        this.onlineUrlMessage = '';
+        if ((control.touched || control.dirty) && control.errors) {
+            this.onlineUrlMessage = Object.keys(control.errors).map(
+                key => this.validationMessages[key].join(' ')
+            );
+        }
+
+
     }
 }
 

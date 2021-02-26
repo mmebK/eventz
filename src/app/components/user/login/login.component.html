@@ -5,14 +5,25 @@
 				<h2 class="title">Sign in</h2>
 				
 				
-				<div class="input-field">
-					<i class="fas fa-user"></i>
-					<input formControlName="userName" type="text" placeholder="Username"/>
-				</div>
-				<div class="input-field">
-					<i class="fas fa-lock"></i>
-					<input formControlName="passWord" type="password" placeholder="Password"/>
-				</div>
+				<mat-form-field style="width:320px !important" floatLabel="never"
+				                appearance="outline">
+					<input formControlName="userName" type="text" matInput placeholder="username">
+					<mat-icon matPrefix>person</mat-icon>
+					<mat-error *ngIf="login.controls.userName.hasError('required')">
+						This field is <strong>required</strong>
+					</mat-error>
+				</mat-form-field>
+				
+				<mat-form-field style="width:320px !important" floatLabel="never"
+				                appearance="outline">
+					<input formControlName="passWord" type="text" matInput placeholder="password">
+					<mat-icon matPrefix>lock</mat-icon>
+					<mat-error *ngIf="login.controls.passWord.hasError('required')">
+						This field is <strong>required</strong>
+					</mat-error>
+				</mat-form-field>
+				
+				
 				<input (click)="loginUser(login.value)" type="submit" value="Login" class="btn solid"/>
 				<p class="social-text">Or Sign in with social platforms</p>
 				<div class="social-media">
@@ -32,18 +43,50 @@
 			</form>
 			<form [formGroup]="register" class="sign-up-form">
 				<h2 class="title">Sign up</h2>
-				<div class="input-field">
-					<i class="fas fa-user"></i>
-					<input formControlName="userName" type="text" placeholder="Username"/>
-				</div>
-				<div class="input-field">
-					<i class="fas fa-envelope"></i>
-					<input formControlName="email" type="email" placeholder="Email"/>
-				</div>
-				<div class="input-field">
-					<i class="fas fa-lock"></i>
-					<input formControlName="passWord" type="password" placeholder="Password"/>
-				</div>
+				<mat-form-field style="width:320px !important" floatLabel="never"
+				                appearance="outline">
+					<input formControlName="userName" type="text" matInput placeholder="username">
+					<mat-icon matPrefix>person</mat-icon>
+					<mat-error *ngIf="register.controls.userName.hasError('required')">
+						This field is <strong>required</strong>
+					</mat-error>
+				</mat-form-field>
+				
+				<mat-form-field style="width:320px !important" floatLabel="never"
+				                appearance="outline">
+					<input formControlName="email" type="text" matInput placeholder="email">
+					<mat-icon matPrefix>person</mat-icon>
+					<mat-error *ngIf="register.controls.email.hasError('required')">
+						This field is <strong>required</strong>
+					</mat-error>
+					<mat-error *ngIf="register.controls.email.hasError('email')">
+						Please provide a correct email
+					</mat-error>
+				</mat-form-field>
+				
+				
+				<mat-form-field style="width:320px !important" floatLabel="never"
+				                appearance="outline">
+					<input formControlName="passWord" type="text" matInput placeholder="passWord">
+					<mat-icon matPrefix>person</mat-icon>
+					<mat-error *ngIf="register.controls.passWord.hasError('required')">
+						This field is <strong>required</strong>
+					</mat-error>
+				</mat-form-field>
+				
+				
+				<!--<mat-form-field
+						>
+					<input matInput value="Sushi">
+					<mat-icon matSuffix>search</mat-icon>
+					<mat-placeholder style="margin-left:20px">Favorite food</mat-placeholder>
+				</mat-form-field>-->
+				<!--<mat-form-field appearance="legacy" floatLabel="never">
+					<mat-label>Search here</mat-label>
+					<input matInput>
+					<mat-icon matSuffix>search</mat-icon>
+				</mat-form-field>-->
+				
 				<input (click)="registerUser(register.value)" type="submit" class="btn" value="Sign up"/>
 				<p class="social-text">Or Sign up with social platforms</p>
 				<div class="social-media">

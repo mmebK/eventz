@@ -39,6 +39,7 @@ h4 {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-size: cover;
+    border-bottom: 1px solid #e2dada;
 }
 
 .card-image img {

@@ -200,8 +200,22 @@ progress::-webkit-progress-value {
 }
 
 .control-buttons {
-  display: flex;
   width: 650px;
   margin: 5px auto 0;
   justify-content: center
+}
+
+strong {
+  font-size: 15px
+}
+
+.submit-bt {
+  display: flex;
+  justify-content: center;
+}
+
+
+div .submit-bt .mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+  min-width: 120px;
+  line-height: 65px;
 }
