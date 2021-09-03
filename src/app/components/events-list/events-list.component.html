@@ -16,18 +16,23 @@
 						<div class="text-center"><i class="fa fa-map-marker-alt "></i>
 							{{event.location.city}}</div>
 					</div>
-					
-				</div>
 				
-				<h4>{{event.name}}</h4>
+				</div>
+				<a routerLink="/events/{{event.id}}">
+					<h4>{{event.name}}</h4>
+				</a>
+			
 			</div>
 			<div class="card-stats">
-				<i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top" title="Share this post"></i>
-				<i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+				<i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top"
+				   title="Share this post"></i>
+				<i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top"
+				   title="I like it"></i>
 			</div>
 		</div>
 	</div>
 	<div *ngIf="events?.length==0" class="alert alert-warning col-md-12" role="alert">not products found</div>
 </div>
+
 
 

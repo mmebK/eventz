@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.timepicker-overlay {
+    z-index: 10000000 !important;
+}
+
+.timepicker-backdrop-overlay {
+    z-index: 10000000 !important;
+}
+
+
+.mat-tab-body-wrapper {
+
+    margin-top: 25px;
+}
+
+/*.mat-accordion .mat-expansion-panel {
+    margin-bottom: 16px;
+}*/
+
+/*.mat-accordion .mat-expansion-panel .mat-expanded,
+.mat-accordion .mat-expansion-panel .mat-expansion-panel-spacing {
+    margin-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+}*/
+.mat-accordion .mat-expansion-panel:not(.mat-expanded),
+.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing) {
+    margin-bottom: 20px;
+    margin-top: 20px
+}

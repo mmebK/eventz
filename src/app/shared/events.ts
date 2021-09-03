@@ -6,12 +6,16 @@ export class ItEvent {
 
     id: number;
     name: string;
-    time: string;
-    date: Date;
+    startTime: Date;
+    endTime: Date;
+    startOfEvent: Date;
+    endOfEvent: Date;
     price: number;
-    online_Url: string;
     location: Location;
-    sessions: Session[];
+    eventSessions: Session[];
+    organizer: string;
+    description: string;
+    onlineUrl: string;
 
 
 }

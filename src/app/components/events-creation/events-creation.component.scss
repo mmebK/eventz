@@ -1,0 +1,46 @@
+.add {
+
+  /*  margin-top: 5px;
+    border-radius: 5px 5px;
+    !*border: 1px solid;
+    min-width: 5px*!
+    width: 200px;
+    height: 55px;
+    border: 1px solid black;*/
+}
+
+.add:hover {
+  opacity: 1;
+}
+
+
+/*timepicker .k-picker-wrap {
+    border-width: 1px 1px;
+
+}*/
+.i-time {
+  color: rgba(0, 0, 0, 0.54)
+}
+
+.button-add {
+  float: right;
+}
+
+igx-time-picker {
+  width: 400px;
+}
+
+$margin: 8px 8px 8px 0px;
+$actions-height: 52px;
+
+.action-buttons {
+  display: flex;
+  margin-left: 24px;
+  justify-content: flex-end;
+  align-items: center;
+  height: $actions-height;
+
+  [igxButton] {
+    margin: $margin;
+  }
+}
