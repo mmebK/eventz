@@ -6,6 +6,7 @@ export class ItEvent {
 
     id: number;
     name: string;
+    category: string;
     startTime: Date;
     endTime: Date;
     startOfEvent: Date;

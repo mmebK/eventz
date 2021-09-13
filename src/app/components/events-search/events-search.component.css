@@ -1,0 +1,178 @@
+.search-container {
+    box-shadow: 1px 2px 3px rgba(4, 0, 0, 0.1);
+
+}
+
+.filter {
+    justify-content: center;
+    display: flex;
+}
+
+.forms {
+
+    justify-content: center;
+    display: flex;
+    width: 100%
+}
+
+.search-input {
+    width: 100%;
+    background: #f9f7f7;
+    margin: 0;
+    padding: 0;
+    height: 55px;
+    border-top-left-radius: 5px;
+
+
+}
+
+.location-input {
+    background: #f7f7f7;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 55px
+}
+
+::ng-deep .mat-input-underline {
+    display: none;
+}
+
+.advanced-search {
+    background: #ff531f;
+    align-items: center;
+    justify-content: center;
+    max-width: 50px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+
+}
+
+.advanced-search .mat-icon {
+    font-size: 30px;
+
+}
+
+.forms ::ng-deep .mat-form-field-flex {
+    display: inline-flex;
+    align-items: end !important;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+::ng-deep .mat-input {
+    display: none;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+.filter ::ng-deep .mat-form-field-flex {
+    align-items: unset;
+}
+
+.blog-card {
+    height: 180px;
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    border-radius: 0;
+    background: white;
+    box-shadow: 0 10px 50px rgba(183, 128, 128, 0.3);
+    margin-bottom: 10px
+}
+
+
+.inner-part {
+    position: absolute;
+    display: flex;
+    height: 180px;
+    justify-content: center;
+
+}
+
+
+.inner-part .img {
+    height: 180px;
+    width: 360px;
+
+    flex-shrink: 0;
+    overflow: hidden;
+    /*
+    border-radius: 20px;
+    */
+    box-shadow: 2px 3px 15px rgba(252, 56, 56, .1);
+    margin-bottom: 0;
+}
+
+
+.content {
+    padding: 0 20px 0 0px;
+    width: 530px;
+    /*margin-left: 50px;*/
+    display: grid;
+
+}
+
+.content .date-info {
+    height: 45px;
+    width: 490px;
+    background: #435f71;
+    padding-left: 0 !important;
+
+    align-items: center
+}
+
+.date-info .header-text {
+    color: white;
+    justify-content: center;
+    display: flex;
+}
+
+
+.content span {
+    display: block;
+    color: #7b7992;
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: 500;
+    margin-left: 20px
+}
+
+
+.content .title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0d0925;
+
+}
+
+
+.content .text {
+    color: #4e4a67;
+    font-size: 19px;
+    margin-bottom: 30px;
+    line-height: 1.5em;
+    text-align: justify;
+}
+
+.location-info {
+    align-self: end;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

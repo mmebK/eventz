@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container justify-content-center">
 	
 	
 	<!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
@@ -44,7 +44,7 @@
 					<div>
 						<mat-form-field class="col-5" appearance="outline">
 							<mat-label>category</mat-label>
-							<mat-select formControlName="category">
+							<mat-select class="csr" disableOptionCentering formControlName="category">
 								
 								<mat-option *ngFor="let eventCat of categories.eventsCategories" [value]="eventCat">
 									{{eventCat}}
@@ -142,7 +142,7 @@
 					<div class="row" style="margin-left:0">
 						<mat-form-field class="col-4" appearance="outline">
 							<mat-label>End of the event</mat-label>
-							<input matInput [matDatepicker]="picker2" formControlName="endOfEvent">
+							<input matInput [matDatepicker]="picker2">
 							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 							<mat-datepicker #picker2></mat-datepicker>
 						</mat-form-field>

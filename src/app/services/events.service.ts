@@ -39,5 +39,20 @@ export class EventsService {
 
     }
 
+    searchEvents(keyword: string): Observable<ItEvent[]> {
+        const searchUrl = `${this.url}/search/findByNameContaining?name=${keyword}`;
+        return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
+    }
+
+    searchEventses(keyword: string, location: string, category: string): Observable<ItEvent[]> {
+        const searchUrl = `${this.url}/search/findByNameContainingAndLocation_CityContainingAndCategoryContaining?name=${keyword}` + `&location=${location}` + `&category=${category}`;
+        return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
+    }
+
+    searchByLocation(location: string): Observable<ItEvent[]> {
+        const searchUrl = `${this.url}/search/findByLocation_CityContaining?location=${location}`;
+        return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
+    }
+
 
 }
