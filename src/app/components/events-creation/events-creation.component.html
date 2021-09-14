@@ -40,7 +40,7 @@
 					
 					
 					<!--category-->
-					<!--{{cat.categories[0]}}-->
+					
 					<div>
 						<mat-form-field class="col-5" appearance="outline">
 							<mat-label>category</mat-label>
@@ -164,8 +164,8 @@
 				
 				
 				<div>
-					<button mat-button matStepperPrevious>Back</button>
-					<button mat-button matStepperNext>Next</button>
+					<button mat-stroked-button matStepperPrevious>Back</button>
+					<button mat-stroked-button matStepperNext>Next</button>
 				</div>
 			</form>
 		</mat-step>
@@ -197,8 +197,8 @@
 				
 				
 				<div>
-					<button mat-button matStepperPrevious>Back</button>
-					<button mat-button (click)="stepper.reset()">Reset</button>
+					<button mat-stroked-button matStepperPrevious>Back</button>
+					<button mat-stroked-button (click)="stepper.reset()">Reset</button>
 				</div>
 			
 			</form>
@@ -347,6 +347,8 @@
 								</button>
 							
 							</mat-expansion-panel>
+							<button mat-stroked-button matStepperPrevious>Back</button>
+						
 						</mat-accordion>
 						
 						
@@ -354,22 +356,22 @@
 							<button class="button-add" type="button" (click)="addSession()" mat-fab color="accent"
 							        aria-label="Example icon button with a bookmark icon">
 								<mat-icon>add_circle</mat-icon>
-								add
+							
 							</button>
 						</div>
 					
 					</div>
 				</div>
+				<button mat-flat-button color="primary" (click)="submitForm()" type="submit">
+					submit
+				</button>
 			</form>
 		
 		</mat-step>
 	
 	</mat-horizontal-stepper>
-	
-	
-	<button (click)="submitForm()" type="submit">
-		submit
-	</button>
+
+
 </div>
 
 

@@ -4,6 +4,7 @@ import {CategoriesService} from '../../services/categories.service';
 import {ItEvent} from '../../shared/events';
 import {EventsService} from '../../services/events.service';
 import {Router} from '@angular/router';
+import {DataService} from '../../services/data.service';
 
 @Component({
     selector: 'app-events-search',
@@ -17,7 +18,7 @@ export class EventsSearchComponent implements OnInit {
     search: FormGroup;
     events: ItEvent[];
 
-    constructor(private categoriesService: CategoriesService, private fb: FormBuilder, private eventService: EventsService, private route: Router) {
+    constructor(private dataService: DataService, private categoriesService: CategoriesService, private fb: FormBuilder, private eventService: EventsService, private route: Router) {
     }
 
     ngOnInit(): void {
@@ -29,21 +30,32 @@ export class EventsSearchComponent implements OnInit {
         });
         this.categories = this.categoriesService.getCategories();
         this.eventService.getEvents().subscribe(data => this.events = data);
-        console.log(this.events);
+        //  console.log(this.events);
+        this.dataService.currentData.subscribe(data => {
+            this.doSearchKeyWord(data);
+            this.search.get('searchInput').setValue(data);
+        });
     }
-
 
     doSearch(value, value2, value3) {
-        console.log(`${value}`);
-        console.log(this.search.value);
-        this.eventService.searchEventses(value, value2, value3).subscribe(data => this.events = data);
+        //  console.log(`${value}`);
+        //  console.log(this.search.value);
+
+
+        //this.eventService.search.subscribe(data => console.log(data));
+        console.log('inside dosearch ' + value);
+
+        this.eventService.searchEventses(value, value2, value3).subscribe(data => {
+            this.events = data;
+            console.log(data);
+        });
 
     }
 
-    /* doSearch(value2) {
-         console.log(`${value2}`);
+    doSearchKeyWord(value2) {
+        console.log(`${value2}`);
 
-         this.eventService.searchByLocation(value2).subscribe(data => this.events = data);
+        this.eventService.searchEvents(value2).subscribe(data => this.events = data);
 
-     }*/
+    }
 }

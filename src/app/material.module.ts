@@ -22,6 +22,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatTableModule,
         MatPaginatorModule,
         MatExpansionModule,
-        MatStepperModule
+        MatStepperModule,
+        MatMenuModule
 
     ],
     exports: [
@@ -68,7 +70,8 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatTableModule,
         MatPaginatorModule,
         MatExpansionModule,
-        MatStepperModule
+        MatStepperModule,
+        MatMenuModule
     ],
     providers: [
         MatDatepickerModule,

@@ -1,6 +1,4 @@
-<script src="../../../../../../../../AppData/Local/Temp/Rar$DRa17904.34813/template-events-calendar/admin/feedback/js/admin-feedback.js"></script>
-<script src="../../../../../../../../AppData/Local/Temp/Rar$DRa17904.33147/template-events-calendar/admin/feedback/js/admin-feedback.js"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="#">Navbar</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 	        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,14 +25,105 @@
 					<a class="dropdown-item" href="#">Something else here</a>
 				</div>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+			<li class="nav-item float-end">
+				<a class="nav-link " routerLink="/login" href="#" tabindex="-1" aria-disabled="true">login</a>
+			</li>
+			<form class="form-inline my-2 my-lg-0">
+				<input #myInput (keyup.enter)="doSearch(myInput.value)" class="form-control mr-sm-2" type="search"
+				       placeholder="Search" aria-label="Search">
+				<button (click)="doSearch(myInput.value)" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+					Search
+				</button>
+			</form>
+			<li class="nav-item float-right">
+				<a class="nav-link " routerLink="/login" href="#" tabindex="-1" aria-disabled="true">login</a>
 			</li>
 		</ul>
-		<form class="form-inline my-2 my-lg-0">
-			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		</form>
+	
+	
+	</div>
+</nav>-->
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+	<a class="navbar-brand" href="#">WebSiteName</a>
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb"
+	        aria-expanded="true">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div id="navb" class="navbar-collapse collapse hide">
+		<ul class="navbar-nav">
+			<li class="nav-item active">
+				<a class="nav-link" routerLink="/events">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link">new event</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="/newEvent">Page 2</a>
+			</li>
+			<form class="form-inline my-2 my-lg-0">
+				<input #myInput (keyup.enter)="doSearch(myInput.value)" class="form-control mr-sm-2" type="search"
+				       placeholder="Search" aria-label="Search">
+				<button (click)="doSearch(myInput.value)" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+					Search
+				</button>
+			</form>
+		</ul>
+		<ul class="nav navbar-nav ml-auto">
+			<li *ngIf="authenticated">
+				<button routerLink="/newEvent" mat-raised-button color="primary" mat-button>
+					<mat-icon matSuffix>add_box</mat-icon>
+					creat an event
+				</button>
+			</li>
+		</ul>
+		
+		<ul class="nav navbar-nav ml-auto">
+			
+			<li class="nav-item">
+				<a *ngIf="!authenticated" routerLink="/login" class="nav-link" href="#"><span
+						class="fas fa-sign-in-alt"></span> Login</a>
+			</li>
+			
+			<li *ngIf="authenticated">
+				<button [matMenuTriggerFor]="aboveMenu" aria-haspopup="true" mat-button="" aria-label="Select a version"
+				
+				        class="mat-focus-indicator mat-tooltip-trigger mat-menu-trigger mat-button mat-button-base"
+				        aria-describedby="cdk-describedby-message-0"><span
+						class="mat-button-wrapper"><span style="color:white">{{userName}}</span>  <mat-icon role="img"
+				                                                                                            color="primary"
+				                                                                                            class="mat-icon  material-icons mat-icon-no-color"
+				                                                                                            aria-hidden="true"
+				                                                                                            data-mat-icon-type="font">arrow_drop_down</mat-icon></span><span
+						class="mat-ripple mat-button-ripple"></span><span
+						class="mat-button-focus-overlay"></span>
+				</button>
+				<mat-menu #aboveMenu="matMenu" yPosition="above">
+					<button mat-menu-item>profile</button>
+					<button mat-menu-item>bookmarked</button>
+					<button (click)="logout()" mat-menu-item><i class="material-icons">&#xE8AC;</i>logout</button>
+				</mat-menu>
+			</li>
+			
+			<!--
+			<li class="navbar-nav ml-auto">
+				
+				<div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+					<button
+							mat-flat-button id="dropdownManual" ngbDropdownAnchor
+							(focus)="myDrop.open()"><img
+							src="src/assets/images/profilepic.png" class="avatar" alt="Avatar"> Paula Wilson <b
+							class="caret"></b></button>
+					<div ngbDropdownMenu class="dropdown-menu">
+						<a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+						<a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
+						<a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
+					</div>
+				</div>
+			</li>-->
+		</ul>
 	</div>
 </nav>
 <!--  <section class="banner">

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ItEvent} from '../shared/events';
@@ -17,7 +17,7 @@ interface GetResponseEvents {
 export class EventsService {
 
     url = 'http://localhost:8080/events';
-
+    @Output() search: EventEmitter<any> = new EventEmitter();
     constructor(private http: HttpClient) {
     }
 

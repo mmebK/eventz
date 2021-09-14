@@ -11,6 +11,7 @@ import {PopupSettings} from '@progress/kendo-angular-dateinputs';
 import {IgxTimePickerComponent} from 'igniteui-angular';
 import {EventEmitter} from 'events';
 import {log} from 'util';
+import {AuthenticationService} from '../../services/authentication.service';
 
 /*Date.prototype.toJSON = function() {
     return this.toString();
@@ -77,7 +78,8 @@ export class EventsCreationComponent implements OnInit {
     public today: Date = new Date();
     private myDate: Date;
 
-    constructor(private fb: FormBuilder, private router: Router, private catService: CategoriesService, private eventService: EventsService) {
+
+    constructor(private fb: FormBuilder, private router: Router, private catService: CategoriesService, private eventService: EventsService, private auth: AuthenticationService) {
     }
 
 
