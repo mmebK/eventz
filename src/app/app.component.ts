@@ -28,10 +28,11 @@ export class AppComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.form = new FormGroup({
-            departureTime: new FormControl()
-        });
-        console.log('is authenticated' + this.auth.isAuthenticated());
+
+        if (this.auth.jwtUpdated != null) {
+            console.log('is authenticated' + this.auth.isAuthenticated());
+        }
+
         //this.auth.jwt = localStorage.getItem('token');
 
         /*this.router.events
