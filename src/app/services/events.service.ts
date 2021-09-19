@@ -17,7 +17,9 @@ interface GetResponseEvents {
 export class EventsService {
 
     url = 'http://localhost:8080/events';
+    urls = 'http://localhost:8080/saveImage';
     @Output() search: EventEmitter<any> = new EventEmitter();
+
     constructor(private http: HttpClient) {
     }
 
@@ -39,6 +41,14 @@ export class EventsService {
 
     }
 
+    getImage(eventId: number): Observable<any> {
+
+        let searchImgUrl = 'http://localhost:8080/photoProduct';
+        const eventUrl = `${searchImgUrl}/${eventId}`;
+        return this.http.get<any>(eventUrl);
+
+    }
+
     searchEvents(keyword: string): Observable<ItEvent[]> {
         const searchUrl = `${this.url}/search/findByNameContaining?name=${keyword}`;
         return this.http.get<GetResponseEvents>(searchUrl).pipe(map(data => data._embedded.events));
@@ -55,4 +65,8 @@ export class EventsService {
     }
 
 
+    postEventine(formData: FormData) {
+        console.log('saving image called');
+        return this.http.post(this.urls, formData);
+    }
 }

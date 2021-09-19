@@ -11,7 +11,7 @@
 		
 		
 		<mat-step [stepControl]="generalInfo">
-			<form [formGroup]="generalInfo" (ngSubmit)="submitForm()">
+			<form [formGroup]="generalInfo">
 				<ng-template matStepLabel>Fill out your name</ng-template>
 				<!--<mat-form-field>
 					<input matInput type="time" class="bg-none" placeholder="Time">
@@ -142,7 +142,7 @@
 					<div class="row" style="margin-left:0">
 						<mat-form-field class="col-4" appearance="outline">
 							<mat-label>End of the event</mat-label>
-							<input matInput [matDatepicker]="picker2">
+							<input formControlName="endOfEvent" matInput [matDatepicker]="picker2">
 							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 							<mat-datepicker #picker2></mat-datepicker>
 						</mat-form-field>
@@ -174,17 +174,65 @@
 		<!--date-->
 		<mat-step [stepControl]="sessionForm">
 			<ng-template matStepLabel>Complementary infos</ng-template>
-			<form [formGroup]="complementInfo" (ngSubmit)="submitForm()" novalidate>
+			<form [formGroup]="complementInfo" novalidate>
 				
 				<!--
 								<app-image-upload></app-image-upload>
 				-->
 				<h1>Principal Image of The event</h1>
 				<p>provide the main image of the event, this will appear on main page</p>
-				<mat-form-field class="col-8" appearance="outline">
+				
+				<!--<div class="uploader-wrapper">
+					<ngx-awesome-uploader fileMaxCount="1" [adapter]="adapter"
+					                      [enableCropper]="false"
+					                      (uploadSuccess)="uploadSuccess($event)" (change)="fileChangeEvent($event)"
+					                      (drop)="fileChangeEvent($event)" (dragover)="fileChangeEvent($event)">
+					</ngx-awesome-uploader>
+				</div>-->
+				<div *ngIf="!image2" class=" dropzone uploadfilecontainer" (click)="fileInput.click()" dropzone
+				     (drop)="fileChangeEvent($event)">
+					<h3>Choose an image</h3>
+					<p>file no more than 2mb</p>
+					<input hidden type="file" #fileInput (change)="fileChangeEvent($event)">
+				</div>
+				
+				
+				<div *ngIf="image2">
+					<div class="image-container">
+						<img [src]="image2"/>
+					
+					</div>
+					<div class="control-buttons">
+						<button (click)="removeImage()" mat-raised-button color="primary" mat-button>
+							<mat-icon>remove_circle</mat-icon>
+							remove
+						</button>
+						<button (click)="resizeImage()" mat-raised-button color="warn" mat-button>
+							<mat-icon> format_shapes</mat-icon>
+							resize
+						</button>
+					</div>
+				
+				</div>
+				
+				
+				<!--<mat-form-field class="col-8" appearance="outline">
 					<mat-label>Description</mat-label>
 					<textarea formControlName="imageUrl" matInput placeholder="Placeholder"></textarea>
-				</mat-form-field>
+				</mat-form-field>-->
+				
+				<!--<div id="file" class="form-group">
+					<label for="file">File upload</label>
+					<input type="file" class="form-control" accept="image/*" (change)="fileChangeEvent($event)"
+					       style="height:100%">
+				</div>
+				
+				<div *ngIf="image2" class="image-container">
+					<img [src]="image2"/>
+				
+				</div>    -->            <!--
+								<app-image-cropper [src]="image2"></app-image-cropper>
+				-->
 				
 				
 				<h1>Description</h1>
@@ -209,7 +257,7 @@
 		<mat-step [stepControl]="sessionForm">
 			<ng-template matStepLabel>Create the sessions</ng-template>
 			
-			<form [formGroup]="sessionForm" (ngSubmit)="submitForm()" novalidate>
+			<form [formGroup]="sessionForm" novalidate>
 				
 				
 				<h1>Sessions</h1>
@@ -341,10 +389,17 @@
 								</div>
 								
 								
-								<button type="button" (click)="togglePanel(mep)" mat-button>
+								<button color="success" mat-raised-button type="button" (click)="togglePanel(mep)"
+								        mat-button>
 									<mat-icon>save</mat-icon>
 									Save
 								</button>
+								<button color="warn" mat-raised-button type="button" (click)="removeSession(mep)"
+								        mat-button>
+									<mat-icon>remove</mat-icon>
+									remove
+								</button>
+							
 							
 							</mat-expansion-panel>
 							<button mat-stroked-button matStepperPrevious>Back</button>

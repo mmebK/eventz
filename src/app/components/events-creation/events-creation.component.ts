@@ -1,21 +1,18 @@
-import {Component, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatAccordion, MatExpansionPanel} from '@angular/material/expansion';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import * as moment from 'moment';
-import {$} from 'protractor';
-import {EventCategories} from '../../shared/categories';
 import {CategoriesService} from '../../services/categories.service';
 import {EventsService} from '../../services/events.service';
-import {PopupSettings} from '@progress/kendo-angular-dateinputs';
-import {IgxTimePickerComponent} from 'igniteui-angular';
-import {EventEmitter} from 'events';
-import {log} from 'util';
 import {AuthenticationService} from '../../services/authentication.service';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {ImageUploadComponent} from '../image-upload/image-upload.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DataService} from '../../services/data.service';
+import {DomSanitizer} from '@angular/platform-browser';
+import {HttpClient} from '@angular/common/http';
 
-/*Date.prototype.toJSON = function() {
-    return this.toString();
-};*/
+
 let replacerd = function(key, value) {
     return typeof value === 'string' && this[key] instanceof Date ? String(this[key]) : value;
 };
@@ -57,6 +54,7 @@ export class EventsCreationComponent implements OnInit {
     disabled = true;
     myTime: Date;
     eventForm: FormGroup;
+    image: any = File;
     @ViewChild(MatAccordion) accordion: MatAccordion;
     @ViewChild(MatExpansionPanel) panel: MatExpansionPanel;
 
@@ -76,17 +74,78 @@ export class EventsCreationComponent implements OnInit {
     data: 25;
     mytime: any;
     public today: Date = new Date();
+    imageChangedEvent: any = '';
+    croppedImage: any = '';
+    image2;
+    files: any = [];
+    filename: any;
+    public adapter = new DemoFilePickerAdapter(this.http);
     private myDate: Date;
 
-
-    constructor(private fb: FormBuilder, private router: Router, private catService: CategoriesService, private eventService: EventsService, private auth: AuthenticationService) {
+    constructor(private http: HttpClient, private sanitizer: DomSanitizer, private dataService: DataService, private fb: FormBuilder, private router: Router, private catService: CategoriesService, private eventService: EventsService, private auth: AuthenticationService, public dialog: MatDialog) {
     }
-
 
     get sessions() {
         return <FormArray> this.sessionForm.get('sessions');
     }
 
+    uploadFile(event) {
+        for (let index = 0; index < event.length; index++) {
+            const element = event[index];
+            this.files.push(element.name);
+        }
+    }
+
+    deleteAttachment(index) {
+        this.files.splice(index, 1);
+    }
+
+    fileChangeEvent(event: any): void {
+        console.log('from 1st component' + event.value);
+        this.imageChangedEvent = event;
+        this.filename = event.name;
+
+        this.openDialog();
+
+        this.dataService.updateImage((this.imageChangedEvent));
+        this.dataService.croppedImage.subscribe(data => this.image2 = data);
+
+        this.dataService.fileToUpload.subscribe(data => this.image = data);
+
+        console.log('image data is' + this.image);
+        // this.image2 = new File([convertDataUrlToBlob(this.image)], 'imageName', {type: `image/png`});
+
+        console.log(this.image2);
+        //this.image2 = this.dataURItoBlob(this.image);
+        // console.log(this.image2);
+        //this.image = event.target.files[0];
+        // console.log(image2);
+
+    }
+
+    public uploadSuccess(event): void {
+        console.log(event);
+    }
+
+    openDialog() {
+        this.dialog.open(ImageUploadComponent, {
+            data: {
+                animal: 'panda'
+            }
+        });
+    }
+
+    imageLoaded() {
+        // show cropper
+    }
+
+    cropperReady() {
+        // cropper ready
+    }
+
+    loadImageFailed() {
+        // show message
+    }
 
     ngOnInit(): void {
         //this.reactiveForm();
@@ -116,7 +175,7 @@ export class EventsCreationComponent implements OnInit {
             })
         });
         this.complementInfo = this.fb.group({
-            imageUrl: '',
+            // imageUrl: '',
             description: '',
         });
         this.sessionForm = this.fb.group({
@@ -142,10 +201,10 @@ export class EventsCreationComponent implements OnInit {
         //  console.log(i++);
         //  console.log(prop);
         // console.log(jsonCopy3[prop]);
-        console.log(jsonCopy3);
+        //console.log(jsonCopy3);
         Object.keys(jsonCopy3).forEach(key => {
-            console.log('this is the key:' + key);
-            console.log('this is the value:' + jsonCopy3[key]);
+            // console.log('this is the key:' + key);
+            //  console.log('this is the value:' + jsonCopy3[key]);
         });
 
         Object.keys(jsonCopy3).forEach(key => a[key] = jsonCopy3[key]);
@@ -193,6 +252,8 @@ export class EventsCreationComponent implements OnInit {
     submitForm() {
         let b = {a: 'dede'};
         let c = JSON.stringify(b);
+        //this.dataService.croppedImage.subscribe(data => this.image = data);
+
         // console.log(c);
         //console.log(this.sessionForm.value);
 
@@ -207,14 +268,34 @@ export class EventsCreationComponent implements OnInit {
         //console.log(this.printJson(this.generalInfo.value));
 
         let event = this.printJson(this.generalInfo.value, this.sessionForm.value, this.complementInfo.value);
-        console.log(event);
-        this.eventService.postEvent(event).subscribe();
+        // console.log(this.image);
+        //  console.log(event);
+        // console.log(JSON.stringify(event));
+
+        let formData = new FormData();
+        console.log(this.image);
+        formData.append('event', JSON.stringify(event));
+        formData.append('file', this.image);
+        this.eventService.postEventine(formData).subscribe(response => console.log(response));
+        //this.eventService.postEvent(event).subscribe(data => console.log(data + 'we here'));
         //console.log(this.today);
         /*console.log(this.sessionForm.get('sessions').get('0.timeL').value);
         this.sessionForm.get('sessions.0').get('timeL').valueChanges.subscribe((change) => {
             console.log(change);
         });*/
     }
+
+    dataURItoBlob(dataURI) {
+        let binary = atob(dataURI.split(',')[1]);
+        let array = [];
+        for (let i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], {
+            type: 'image/jpg'
+        });
+    }
+
 
     togglePanel(mep) {
         mep.expanded = !mep.expanded;
@@ -241,16 +322,44 @@ export class EventsCreationComponent implements OnInit {
 
     }
 
+
+    onSelectFile(event) {
+        this.image = event.target.files[0];
+        console.log(this.image);
+    }
+
+    remove() {
+        console.log('clickec');
+    }
+
+    removeImage() {
+        this.image2 = undefined;
+    }
+
+    resizeImage() {
+        this.openDialog();
+    }
+
+    onDrop(files) {
+
+        this.fileChangeEvent(files);
+        for (let i = 0; i < files.length; i++) {
+            this.files.push(files.item(i));
+        }
+    }
+
     private buildSession() {
         return this.fb.group({
             name: '',
             presenter: '',
-            duration: '',
             level: '',
             description: '',
-            timeL: '',
-            timestamp: ''
+
         });
+    }
+
+    removeSession(mep: MatExpansionPanel) {
+
     }
 }
 
