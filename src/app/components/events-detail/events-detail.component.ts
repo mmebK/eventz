@@ -35,7 +35,6 @@ export class EventsDetailComponent implements OnInit {
     panelOpenState = false;
     event: ItEvent;
     image: any;
-    adapter = new DemoFilePickerAdapter(this.http);
 
     constructor(private data: DataService, private http: HttpClient, private fb: FormBuilder, private eventService: EventsService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
 

@@ -118,7 +118,7 @@
 						<mat-form-field class="col-4" appearance="outline">
 							<mat-label>Start of the event</mat-label>
 							<input matInput [matDatepicker]="picker" formControlName="startOfEvent"
-							       (dateChange)="updateDOB($event)">
+							>
 							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 							<mat-datepicker #picker></mat-datepicker>
 						</mat-form-field>
@@ -394,7 +394,7 @@
 									<mat-icon>save</mat-icon>
 									Save
 								</button>
-								<button color="warn" mat-raised-button type="button" (click)="removeSession(mep)"
+								<button color="warn" mat-raised-button type="button" (click)="removeSession(i)"
 								        mat-button>
 									<mat-icon>remove</mat-icon>
 									remove

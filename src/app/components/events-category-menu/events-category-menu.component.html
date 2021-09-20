@@ -1,17 +1,20 @@
 <div class="justify-content-start mb-3 m-1">
 	<div class="row " style="margin-left: 3px">
 		<h5>Events around:</h5>
+		<mat-form-field class="col-5" color="primary" appearance="fill">
+			
+			
+			<input #locationInput (keyup.enter)="doSearch(locationInput.value)" matInput>
+		
+		</mat-form-field>
 	</div>
 	<div class="row">
 		<nav class="nav">
-			<a href="" class="nav-link">Java</a>
-			<a href="" class="nav-link">Python</a>
-			<a href="" class="nav-link">SQL</a>
-			<a href="" class="nav-link">TypeScript</a>
-			<a href="" class="nav-link">Java</a>
-			<a href="" class="nav-link">Python</a>
-			<a href="" class="nav-link">SQL</a>
-			<a href="" class="nav-link">TypeScript</a>
+			<a (click)="searchCategory(key)" class="nav-link">All events</a>
+			
+			<a (click)="searchCategory(keyword)" *ngFor="let keyword of navKeyWords.keyWords"
+			   class="nav-link">{{keyword}}</a>
+		
 		
 		</nav>
 	</div>

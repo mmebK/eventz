@@ -6,16 +6,15 @@ import {BehaviorSubject, Subject} from 'rxjs';
 })
 export class DataService {
 
-    private data = new Subject<any>();
-    private data2 = new Subject<any>();
-    currentData = this.data.asObservable();
-    currentData2 = this.data.asObservable();
     jwt: BehaviorSubject<string> = new BehaviorSubject('');
+    locationSearch: BehaviorSubject<string> = new BehaviorSubject('');
     image: BehaviorSubject<string> = new BehaviorSubject('');
     croppedImage: BehaviorSubject<string> = new BehaviorSubject('');
     fileToUpload: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
     currentJwt = this.jwt.asObservable();
-
+    categorySearch: BehaviorSubject<String> = new BehaviorSubject<String>('');
+    private data = new Subject<any>();
+    currentData = this.data.asObservable();
 
     constructor() {
     }
@@ -25,9 +24,6 @@ export class DataService {
         this.data.next(item);
     }
 
-    updateAuth(item: any) {
-        this.data2.next(item);
-    }
 
     updateCroppedImage(image: any) {
         this.croppedImage.next(image);
@@ -43,5 +39,13 @@ export class DataService {
 
     updateFileToUpload(file: any) {
         this.fileToUpload.next(file);
+    }
+
+    updateLocationSearch(location: string) {
+        this.locationSearch.next(location);
+    }
+
+    updateCategorySearch(category: string) {
+        this.categorySearch.next(category);
     }
 }
