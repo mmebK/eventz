@@ -29,8 +29,13 @@ export class AppComponent implements OnInit {
 
     public ngOnInit() {
 
-        if (this.auth.jwtUpdated != null) {
-            console.log('is authenticated' + this.auth.isAuthenticated());
+        this.auth.loadToken();
+
+        console.log('updated jwt' + this.auth.jwt);
+        if (this.auth.jwt == null) {
+            return;
+        } else {
+            this.auth.isAuthenticated();
         }
 
         //this.auth.jwt = localStorage.getItem('token');

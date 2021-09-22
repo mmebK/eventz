@@ -49,7 +49,7 @@ export class EventsListComponent implements OnInit {
     }
 
     private eventListSearchByCategory() {
-        this.eventsService.getEventListByCategory(this.categorySearchValue).subscribe(
+        this.eventsService.getEventsByCategory(this.categorySearchValue).subscribe(
             data => this.events = data);
     }
 }

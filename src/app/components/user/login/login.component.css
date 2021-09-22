@@ -9,12 +9,17 @@ input {
     font-family: "Poppins", sans-serif;
 }
 
+.container-fluid {
+    margin: 0 !important
+}
+
 .container {
     position: relative;
     width: 100%;
     background-color: #fff;
     min-height: 100vh;
     overflow: hidden;
+    margin: 0 !important;
 }
 
 .forms-container {

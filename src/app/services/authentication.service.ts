@@ -51,6 +51,7 @@ export class AuthenticationService {
 
     isUser() {
         if (this.jwtUpdated != null) {
+            console.log('from is user' + this.jwtUpdated.value);
             this.readToken();
             this.parseJWT();
             return this.roles.indexOf('USER') >= 0;
