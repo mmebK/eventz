@@ -1,11 +1,41 @@
+.main-body {
+    max-width: 100%;
+    background: #e8e1e1;
+    min-height: 95.5vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    min-width: 1200px;
+
+}
+
+.wrapper-body {
+    margin-top: 20px;
+    background: #fff;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+
+
+}
 
 .header {
     height: 400px;
+
 }
 
 .left-header {
     background: #415d87;
     color: #fff;
+    padding-right: 0;
+    border-top-left-radius: 15px;
+
+}
+
+.right-header {
+    padding: 0;
+
 }
 
 .white-icon {
@@ -31,7 +61,8 @@
     height: 80px;
     width: 95px;
     border: 1px solid #e9e9e9;
-    margin: 5px 18px 5px 0;
+    margin: 10px 18px 5px 135px;
+
 }
 
 /*.square:after {
@@ -78,8 +109,8 @@ span.details {
 
 p.day {
     font-size: 50px;
-    margin: 3px 10px;
-    padding: 3px 0;
+    margin: 8px 10px 5px 10px;
+    padding: 3px 8px;
 }
 
 p.month {
@@ -111,4 +142,11 @@ p.month {
     display: flex;
     align-items: center;
     justify-content: center
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid;
+    border-top-right-radius: 15px;
 }

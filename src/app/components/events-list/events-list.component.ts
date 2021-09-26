@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ItEvent} from '../../shared/events';
 import {EventsService} from '../../services/events.service';
 import {DataService} from '../../services/data.service';
+import {ActivatedRoute} from '@angular/router';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-events-list',
@@ -14,8 +16,12 @@ export class EventsListComponent implements OnInit {
     events: ItEvent[];
     locationSearchValue;
     categorySearchValue;
+    image;
+    eventId;
+    imageUrl: 'http://localhost:8080/photosProduct/';
 
-    constructor(private eventsService: EventsService, private data: DataService) {
+
+    constructor(private eventsService: EventsService, private data: DataService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
@@ -33,7 +39,7 @@ export class EventsListComponent implements OnInit {
 
     }
 
-    private eventListSearchByLocation() {
+    eventListSearchByLocation() {
         this.eventsService.getEventsByLocation(this.locationSearchValue).subscribe(data => {
             this.events = data;
             console.log(this.events);
@@ -41,9 +47,16 @@ export class EventsListComponent implements OnInit {
 
     }
 
+    setCurrentIndex(i: number) {
+        this.eventId = i;
+        this.image = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/photoProduct/' + this.eventId);
+        console.log(this.eventId);
+    }
+
     private eventsList() {
         this.eventsService.getEvents().subscribe(data => {
             this.events = data;
+            //    this.image = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/photoProduct/' +);
             console.log(data);
         });
     }

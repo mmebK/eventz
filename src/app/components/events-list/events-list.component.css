@@ -8,7 +8,7 @@ body {
 
 .card {
     display: grid;
-    grid-template-columns: 278px;
+    grid-template-columns: 320px;
     grid-template-rows: 210px 210px 40px;
     grid-template-areas: "image" "text" "stats";
     border-radius: 5px;
@@ -16,6 +16,10 @@ body {
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
     font-family: roboto, sans-serif;
     text-align: center;
+}
+
+h4 {
+    letter-spacing: 0
 }
 
 .card-image {
@@ -32,10 +36,14 @@ body {
 
 .card-image {
     grid-area: image;
-    background: url("https://picsum.photos/600/600");
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-size: cover;
+}
+
+.card-image img {
+    height: 100%;
+    width: 100%
 }
 
 .card-text {
