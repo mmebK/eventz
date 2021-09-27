@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -18,18 +18,15 @@ import {EventsIntroComponent} from './components/events-intro/events-intro.compo
 import {RouterModule} from '@angular/router';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {TimepickerModule} from 'ngx-bootstrap/timepicker';
-import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularMaterialModule} from './material.module';
-import {NO_ENTRY_POINT} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
 import {DateInputsModule} from '@progress/kendo-angular-dateinputs';
-import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MAT_MOMENT_DATE_FORMATS} from '@angular/material-moment-adapter';
 //import {MomentUtcDateAdapter} from './shared/jpl';
 import {IntlModule} from '@progress/kendo-angular-intl';
 import {EventsModule} from '@progress/kendo-angular-common';
@@ -49,7 +46,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {DragDropImageDirective} from './directives/drag-drop-image.directive';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {FilePickerModule} from 'ngx-awesome-uploader';
-import {AuthGuardGuard} from './guards/auth-guard.guard';
 
 
 @NgModule({
@@ -78,7 +74,8 @@ import {AuthGuardGuard} from './guards/auth-guard.guard';
         FormsModule,
         RouterModule.forRoot([
 
-            {path: 'newEvent', component: EventsCreationComponent, canActivate: [AuthGuardGuard]},
+            // {path: 'newEvent', component: EventsCreationComponent, canActivate: [AuthGuardGuard]},
+            {path: 'newEvent', component: EventsCreationComponent},
             {path: 'login', component: LoginComponent},
             {path: 'search', component: EventsSearchComponent},
             {path: 'search/:keyword', component: EventsSearchComponent},

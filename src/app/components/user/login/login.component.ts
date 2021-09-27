@@ -1,15 +1,13 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../../services/authentication.service';
-import {log} from 'util';
 import {Router} from '@angular/router';
 import {DataService} from '../../../services/data.service';
-import {Cookie} from 'ng2-cookies';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -27,14 +25,14 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.login = this.fb.group({
-            userName: [''],
-            passWord: ['']
+            userName: ['', Validators.required],
+            passWord: ['', Validators.required]
         });
 
         this.register = this.fb.group({
-            userName: [''],
-            email: [''],
-            passWord: ['']
+            userName: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            passWord: ['', Validators.required]
         });
 
 
