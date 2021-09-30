@@ -55,7 +55,7 @@
 				<mat-form-field style="width:320px !important" floatLabel="never"
 				                appearance="outline">
 					<input formControlName="email" type="text" matInput placeholder="email">
-					<mat-icon matPrefix>person</mat-icon>
+					<mat-icon matPrefix>email</mat-icon>
 					<mat-error *ngIf="register.controls.email.hasError('required')">
 						This field is <strong>required</strong>
 					</mat-error>
@@ -68,7 +68,7 @@
 				<mat-form-field style="width:320px !important" floatLabel="never"
 				                appearance="outline">
 					<input formControlName="passWord" type="text" matInput placeholder="passWord">
-					<mat-icon matPrefix>person</mat-icon>
+					<mat-icon matPrefix>lock</mat-icon>
 					<mat-error *ngIf="register.controls.passWord.hasError('required')">
 						This field is <strong>required</strong>
 					</mat-error>
